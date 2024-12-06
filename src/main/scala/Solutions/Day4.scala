@@ -8,17 +8,17 @@ import scala.collection.mutable
 case class Input(graph: Graph, positions: List[Position])
 
 object Day4 extends Problem[Map[String, Input]](2024, 4) {
-  private def dfs(paths: List[Position], graph: Graph, target: List[Char], position: Position,
-                  direction: Option[Position] = None, result: List[Position] = List.empty): List[List[Position]] =
+  private def dfs(paths: List[Position], target: List[Char], position: Position, direction: Option[Position] = None,
+                  result: List[Position] = List.empty)(implicit graph: Graph): List[List[Position]] =
     (target, direction) match {
       case (Nil, _) => List(result)
       case (x :: _, _) if !graph.checkBounds(position) || graph(position) != x => Nil
-      case (_ :: xs, Some(direction)) => dfs(paths, graph, xs, position + direction, Some(direction), result :+ position)
-      case (_ :: xs, _) => paths.flatMap(direction => dfs(paths, graph, xs, direction + position, Some(direction), result :+ position))
+      case (_ :: xs, Some(direction)) => dfs(paths, xs, position + direction, Some(direction), result :+ position)
+      case (_ :: xs, _) => paths.flatMap(direction => dfs(paths, xs, direction + position, Some(direction), result :+ position))
     }
 
   private def getResultLists(positions: List[Position], graph: Graph, target: List[Char], paths: List[Position]): List[List[Position]] =
-    positions.flatMap(position => dfs(paths, graph, target, position))
+    positions.flatMap(position => dfs(paths, target, position)(graph))
 
   override def parse(input: List[String]): Map[String, Input] = {
     def getGraph: Graph = Graph(input.toArray.map(_.toCharArray))

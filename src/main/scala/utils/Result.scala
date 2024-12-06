@@ -11,4 +11,3 @@ def Timer[A](blockOfCode: => A) = {
   val elapsedTime = (stopTime - startTime) / 1e9d
   Result(result, elapsedTime)
 }
-

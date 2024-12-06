@@ -32,24 +32,25 @@ object Day6 extends Problem[Graph](2024, 6) {
 
   private val directions: Map[Char, Direction] = Map('^' -> North, '>' -> East, 'v' -> South, '<' -> West)
 
-  private case class Guard(position: Position, direction: Direction)
+  private case class Guard(position: Position, direction: Direction) {
+    def moveForward: Guard = copy(position = position + direction.position)
+    def turnRight: Guard = copy(direction = direction.nextDirection)
+  }
 
-  private def moveForward(graph: Graph, guard: Guard): Guard = {
+  private def moveForwardOrTurn(guard: Guard)(implicit graph: Graph): Guard = {
     val newPosition = guard.position + guard.direction.position
     guard match {
-      case _ if !graph.checkBounds(newPosition) => guard.copy(position = newPosition)
-      case Guard(position, _) if graph(newPosition) == '#' => guard.copy(direction = guard.direction.nextDirection)
-      case Guard(position, _) => graph(newPosition) = 'X'
-        guard.copy(position = newPosition)
+      case _ if !graph.checkBounds(newPosition) => guard.moveForward
+      case guard if graph(newPosition) == '#' => guard.turnRight
+      case guard => graph(newPosition) = 'X'; guard.moveForward
     }
   }
 
   @tailrec
-  private def dfs(graph: Graph, guard: Guard): Graph =
-    moveForward(graph, guard) match {
-      case Guard(position, _) if !graph.checkBounds(position) => graph
-      case newGuard: Guard => dfs(graph, newGuard)
-    }
+  private def dfs(guard: Guard)(implicit graph: Graph): Graph = moveForwardOrTurn(guard) match {
+    case Guard(position, _) if !graph.checkBounds(position) => graph
+    case newGuard: Guard => dfs(newGuard)
+  }
 
   private def getStartingLocation(graph: Graph): Guard = graph.graph.zipWithIndex
     .flatMap((row, i) => row.zipWithIndex.withFilter((char, _) => directions.keySet.contains(char))
@@ -57,10 +58,10 @@ object Day6 extends Problem[Graph](2024, 6) {
 
   override def parse(list: List[String]): Graph = Graph(list.map(_.toCharArray).toArray)
 
-  override def solution1(graph: Graph): Int = {
+  override def solution1(implicit graph: Graph): Int = {
     val startingLocation = getStartingLocation(graph)
     graph(startingLocation.position) = '.'
-    dfs(graph, startingLocation).graph.map(_.count(_ == 'X')).sum
+    dfs(startingLocation).graph.map(_.count(_ == 'X')).sum
   }
 
   override def solution2(graph: Graph): Int = 3
