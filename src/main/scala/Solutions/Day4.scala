@@ -40,19 +40,8 @@ object Day4 extends Problem[Map[String, Input]](2024, 4) {
     getResultLists(input("XMAS").positions, input("XMAS").graph, "XMAS".toList, directions).size
 
   override def solution2(input: Map[String, Input]): Int = {
-    @tailrec
-    def temp(results: Set[List[(Int, Int)]], count: Int = 0): Int = if (results.isEmpty) count else
-      results.head match {
-        case List(x, y, z) if results.contains(List((x._1, z._2), y, (z._1, x._2)).sorted) =>
-          temp(results - List(x, y, z) - List((x._1, z._2), y, (z._1, x._2)).sorted, count + 1)
-        case _ => 0
-      }
-
-    temp(getResultLists(input("MAS").positions, input("MAS").graph, "MAS".toList, part2Directions).toSet)
+    val left = getResultLists(input("MAS").positions, input("MAS").graph, "MAS".toList, part2Directions).toSet
+    val right = left.map(mas => List((mas.head._1, mas.last._2), mas(1), (mas.last._1, mas.head._2)))
+    left.map(_.sorted).intersect(right.map(_.sorted)).size / 2
   }
 }
-
-/*
-original: List((0,1), (1,2), (2,3))
-row: List((0,3), (1,2), (1,2))
-*/
