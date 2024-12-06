@@ -7,4 +7,4 @@ import scala.annotation.tailrec
 import scala.io.Source
 
 @main
-def main(): Unit = Day6.run()
+def main(): Unit = Day6.run(true)
