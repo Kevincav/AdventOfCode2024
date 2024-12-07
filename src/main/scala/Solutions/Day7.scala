@@ -7,7 +7,7 @@ object Day7 extends Problem[List[(Long, List[Long])]](2024, 7) {
     values match {
       case Nil => result == total
       case x :: xs => checkCalculation(xs, total, result + x, concat) || checkCalculation(xs, total, result * x, concat)
-        || (if (concat) checkCalculation(xs, total, (result.toString + x.toString).toLong, concat) else false)
+        || (if (concat) checkCalculation(xs, total, (result.toString ++ x.toString).toLong, concat) else false)
     }
 
   override def parse(list: List[String]): List[(Long, List[Long])] =
