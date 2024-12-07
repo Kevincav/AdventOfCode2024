@@ -2,7 +2,7 @@ package Solutions
 
 import utils.{Graph, Position, Problem}
 
-import scala.annotation.{tailrec, targetName}
+import scala.annotation.tailrec
 
 private sealed trait Direction {
   def position: Position
@@ -55,13 +55,11 @@ object Day6 extends Problem[(Graph, Int)](2024, 6) {
   }
 
   @tailrec
-  private def checkRightDirection(guard: Guard)(implicit graph: Graph): Boolean = {
-    val temp = 3
+  private def checkRightDirection(guard: Guard)(implicit graph: Graph): Boolean =
     if (!graph.checkBounds(guard.position) || graph(guard.position) == '#') false
     else if (graph(guard.position) == '.' || graph(guard.position) == '+') checkRightDirection(guard.moveForward)
     else if (directions(graph(guard.position)).contains(guard.direction)) true
     else false
-  }
 
   @tailrec
   private def dfs(guard: Guard, counter: Int = 0)(implicit graph: Graph): (Graph, Int) =

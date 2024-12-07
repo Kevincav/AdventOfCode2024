@@ -26,9 +26,9 @@ abstract class Problem[A](year: Int, day: Int) {
 
   def parse(input: List[String]): A
 
-  def solution1(input: A): Int
+  def solution1(input: A): Any
 
-  def solution2(input: A): Int
+  def solution2(input: A): Any
 
   def run(testRun: Boolean = false): Unit = {
     checkFolderExists()
