@@ -1,4 +1,4 @@
-package utils
+package advent.utils
 
 import scala.annotation.targetName
 

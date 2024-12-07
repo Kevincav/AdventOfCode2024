@@ -1,7 +1,6 @@
-package Solutions
+package advent.year2024.solutions
 
-import utils.Problem
-
+import advent.utils.Problem
 import scala.annotation.tailrec
 
 object Day3 extends Problem[List[String]](2024, 3) {
@@ -18,7 +17,7 @@ object Day3 extends Problem[List[String]](2024, 3) {
       case _ :: xs => getMulSum(xs, skipDo, enabled, value)
     }
 
-  override def parse(input: List[String]): List[String] = input.flatMap(row => regex.findAllIn(row).toList)
+  override def setup(input: List[String]): List[String] = input.flatMap(row => regex.findAllIn(row).toList)
 
   override def solution1(list: List[String]): Int = getMulSum(list)
 

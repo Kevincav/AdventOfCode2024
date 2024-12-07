@@ -1,16 +1,16 @@
-package Solutions
+package advent.year2024.solutions
 
-import utils.Problem
+import advent.utils.Problem
 
 object Day7 extends Problem[List[(Long, List[Long])]](2024, 7) {
   private def checkCalculation(values: List[Long], total: Long, result: Long, concat: Boolean = false): Boolean =
     values match {
       case Nil => result == total
       case x :: xs => checkCalculation(xs, total, result + x, concat) || checkCalculation(xs, total, result * x, concat)
-        || (if (concat) checkCalculation(xs, total, (result.toString ++ x.toString).toLong, concat) else false)
+        || (if (concat) checkCalculation(xs, total, s"$result$x".toLong, concat) else false)
     }
 
-  override def parse(list: List[String]): List[(Long, List[Long])] =
+  override def setup(list: List[String]): List[(Long, List[Long])] =
     list.map { case s"$total: $values" => total.toLong -> values.split(' ').map(_.toLong).toList }
 
   override def solution1(input: List[(Long, List[Long])]): Long =

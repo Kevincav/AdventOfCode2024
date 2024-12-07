@@ -1,9 +1,9 @@
-package Solutions
+package advent.year2024.solutions
 
-import utils.Problem
+import advent.utils.Problem
 
 object Day1 extends Problem[List[List[Int]]](2024, 1) {
-  override def parse(input: List[String]): List[List[Int]] =
+  override def setup(input: List[String]): List[List[Int]] =
     input.map(_.split(' ').toList.withFilter(_.nonEmpty).map(_.toInt))
 
   override def solution1(data: List[List[Int]]): Int =

@@ -1,6 +1,6 @@
-package Solutions
+package advent.year2024.solutions
 
-import utils.{Graph, Position, Problem}
+import advent.utils.{Graph, Position, Problem}
 
 import scala.annotation.tailrec
 
@@ -72,7 +72,7 @@ object Day6 extends Problem[(Graph, Int)](2024, 6) {
     .flatMap((row, i) => row.zipWithIndex.withFilter((char, _) => directions.keySet.contains(char))
       .map((char, j) => Guard(Position(i, j), directions(char).head))).head
 
-  override def parse(list: List[String]): (Graph, Int) = {
+  override def setup(list: List[String]): (Graph, Int) = {
     implicit val graph: Graph = Graph(list.map(_.toArray).toArray)
     val startingGuard = getStartingLocation(graph)
     graph(startingGuard.position) = startingGuard.direction.direction

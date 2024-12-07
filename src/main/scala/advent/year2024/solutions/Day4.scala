@@ -1,6 +1,6 @@
-package Solutions
+package advent.year2024.solutions
 
-import utils.{Graph, Position, Problem, graphDirections, graphNonDiagonalDirections}
+import advent.utils.{Graph, Position, Problem, graphDirections, graphNonDiagonalDirections}
 
 import scala.annotation.tailrec
 import scala.collection.mutable
@@ -20,7 +20,7 @@ object Day4 extends Problem[Map[String, Input]](2024, 4) {
   private def getResultLists(positions: List[Position], graph: Graph, target: List[Char], paths: List[Position]): List[List[Position]] =
     positions.flatMap(position => dfs(paths, target, position)(graph))
 
-  override def parse(input: List[String]): Map[String, Input] = {
+  override def setup(input: List[String]): Map[String, Input] = {
     def getGraph: Graph = Graph(input.toArray.map(_.toCharArray))
 
     def getPositions(head: Char): List[Position] =

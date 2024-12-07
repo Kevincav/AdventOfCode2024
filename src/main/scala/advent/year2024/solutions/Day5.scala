@@ -1,6 +1,6 @@
-package Solutions
+package advent.year2024.solutions
 
-import utils.Problem
+import advent.utils.Problem
 import scala.annotation.tailrec
 
 object Day5 extends Problem[(Map[Int, Set[Int]], List[List[Int]])](2024, 5) {
@@ -15,7 +15,7 @@ object Day5 extends Problem[(Map[Int, Set[Int]], List[List[Int]])](2024, 5) {
     case _ => Nil
   }
 
-  override def parse(list: List[String]): (Map[Int, Set[Int]], List[List[Int]]) = {
+  override def setup(list: List[String]): (Map[Int, Set[Int]], List[List[Int]]) = {
     val parser = """(\d+)\|(\d+)""".r
 
     @tailrec
