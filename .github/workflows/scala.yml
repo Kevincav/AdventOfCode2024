@@ -27,8 +27,9 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
         cache: 'sbt'
+    - name: Setup Environmental Secrets
       env:
-        super_secret: ${{ secrets.AOC_COOKIE_SESSION }}
+        AOC_COOKIE_SESSION: ${{ secrets.AOC_COOKIE_SESSION }}
     - name: Run Main
       run: sbt run
       # Optional: This step uploads information to the GitHub dependency graph and unblocking Dependabot alerts for the repository
