@@ -11,7 +11,7 @@ object Day7 extends Problem[List[(BigInt, List[BigInt])]](2024, 7) {
     }
 
   override def parse(list: List[String]): List[(BigInt, List[BigInt])] =
-    list.map { case s"$total: $values" => BigInt(total) -> values.split(' ').withFilter(_.nonEmpty).map(BigInt(_)).toList }
+    list.map { case s"$total: $values" => BigInt(total) -> values.split(' ').map(BigInt(_)).toList }
 
   override def solution1(input: List[(BigInt, List[BigInt])]): BigInt =
     input.withFilter((total, values) => checkCalculation(values.tail, total, values.head)).map(_._1).sum
