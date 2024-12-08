@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.util.Date
 
 case class Result[A](name: String, result: A, elapsedTime: Double, date: LocalDate) {
-  override def toString = s"Advent of Code $date, Operation: $name\nDuration: $elapsedTime seconds\nResult: $result\n"
+  override def toString = s"Advent of Code $date\nOperation: $name\nDuration: $elapsedTime seconds\nResult: $result\n"
 }
 
 abstract class Problem[A](year: Int, day: Int) {
@@ -23,8 +23,6 @@ abstract class Problem[A](year: Int, day: Int) {
   def solution2(input: A): Any
 
   def run(): Unit = {
-    println(s"Running Advent of Code for December, $day $year\n")
-
     val clockStart = System.nanoTime
     val data = fetchData(sys.env("AOC_COOKIE_SESSION"))
     val fetchLap = System.nanoTime
