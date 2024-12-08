@@ -15,17 +15,20 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  scala:
+    strategy:
+      matrix:
+        package: [ utils, year2024 ]
     runs-on: ubuntu-latest
     env:
       AOC_COOKIE_SESSION: ${{ secrets.AOC_COOKIE_SESSION }}
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: 'sbt'
-    - name: Run Main
-      run: sbt run
+      - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: corretto
+      - name: Run Main
+        run: sbt -v "org.lemon.advent.${{ matrix.package }}.*"
+
