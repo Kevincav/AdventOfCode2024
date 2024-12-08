@@ -1,8 +1,9 @@
 package org.advent.year2024
 
 import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class Day5Test extends AnyFunSuite {
+class Day5Test extends AnyFunSuite with Matchers {
   test("Test Day 5 Part 1") {
     val data = s"""|47|53
                    |97|13
@@ -33,7 +34,7 @@ class Day5Test extends AnyFunSuite {
                    |61,13,29
                    |97,13,75,29,47""".stripMargin.split("\n").toList
 
-    assert(Day5.solution1(Day5.setup(data)) == 143)
+    Day5.solution1(Day5.setup(data)) shouldBe 143
   }
 
   test("Test Day 5 Part 2") {
@@ -67,7 +68,7 @@ class Day5Test extends AnyFunSuite {
           |61,13,29
           |97,13,75,29,47""".stripMargin.split("\n").toList
 
-    assert(Day5.solution2(Day5.setup(data)) == 123)
+    Day5.solution2(Day5.setup(data)) shouldBe 123
   }
 
   test("Run Day 5") {
