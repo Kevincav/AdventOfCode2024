@@ -3,10 +3,10 @@ package org.advent.utils
 import sttp.client4.*
 
 import java.time.LocalDate
-import java.util.Date
+import scala.Console.CYAN
 
 case class Result[A](name: String, result: A, elapsedTime: Double, date: LocalDate) {
-  override def toString = s"Advent of Code $date\nOperation: $name\nDuration: $elapsedTime seconds\nResult: $result\n"
+  override def toString = s"${CYAN}Advent of Code $date:\n — Operation: $name\n — Duration: $elapsedTime seconds\n — Result: $result\n"
 }
 
 abstract class Problem[A](year: Int, day: Int) {

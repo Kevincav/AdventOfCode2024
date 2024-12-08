@@ -35,6 +35,3 @@ classes/
 
 # Visual Studio Code
 .vscode
-
-# resources
-src/main/resources/*
