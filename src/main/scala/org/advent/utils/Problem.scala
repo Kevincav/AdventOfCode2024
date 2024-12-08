@@ -11,7 +11,7 @@ case class Result[A](name: String, result: A, elapsedTime: Double, date: LocalDa
 }
 
 abstract class Problem[A](year: Int, day: Int) {
-  private def fetchData: List[String] = Source.fromResource(s"year$year/input/Day$day").getLines().toList
+  private def fetchData: List[String] = Source.fromResource(s"year$year/input/Day$day.input").getLines().toList
 
   def setup(input: List[String]): A
 
