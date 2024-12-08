@@ -22,10 +22,10 @@ case class Position(x: Int, y: Int) {
 }
 
 case class Graph(graph: Array[Array[Char]]) {
+  private val ranges = (graph.indices, graph.head.indices)
   def apply(position: Position): Char = graph(position.x)(position.y)
   def update(position: Position, char: Char): Unit = graph(position.x)(position.y) = char
-  def checkBounds(position: Position): Boolean =
-    (graph.indices contains position.x) && (graph(position.x).indices contains position.y)
+  def checkBounds(position: Position): Boolean = (ranges._1 contains position.x) && (ranges._2.indices contains position.y)
   override def toString: String = "." ++ graph.indices.map(_ % 10).mkString ++ "\n" ++
     graph.map(_.mkString).zipWithIndex.map((a, b) => (b % 10).toString ++ a).mkString("\n")
 }
