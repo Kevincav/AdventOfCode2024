@@ -24,7 +24,7 @@ jobs:
       - name: Download File
         run: |
           mkdir -p src/main/resources/year$(date +%Y)/input
-          curl --cookie "session=${{ AOC_COOKIE_SESSION}}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o src/main/resources/year$(date +%Y)/input/Day$(date +"%-d") https://adventofcode.com/$(date +%Y)/day/$(date +"%-d")/input
+          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION}}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o src/main/resources/year$(date +%Y)/input/Day$(date +"%-d") https://adventofcode.com/$(date +%Y)/day/$(date +"%-d")/input
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
