@@ -1,9 +1,6 @@
 package advent.utils
 
 import sttp.client4.*
-import sttp.model.Uri
-
-import scala.concurrent.duration.MILLISECONDS
 
 case class Result[A](name: String, result: A, elapsedTime: Double) {
   override def toString = s"Operation: $name\nDuration: $elapsedTime seconds\nResult: $result"
