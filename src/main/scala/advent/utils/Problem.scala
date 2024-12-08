@@ -20,28 +20,23 @@ abstract class Problem[A](year: Int, day: Int) {
   def solution2(input: A): Any
 
   def run(): Unit = {
-    println(s"Running Advent of Code for December, $day $year")
-    println
+    println(s"Running Advent of Code for December, $day $year\n")
 
     val clockStart = System.nanoTime
     val data = fetchData(sys.env("AOC_COOKIE_SESSION"))
     val fetchLap = System.nanoTime
-    println(Result("Fetch Data", s"${data.size} lines of data", (fetchLap - clockStart) / 1e9d))
-    println
+    println(s"${Result("Fetch Data", s"${data.size} lines of data", (fetchLap - clockStart) / 1e9d)}\n")
 
     val setupData = setup(data)
     val setupLap = System.nanoTime
-    println(Result("Setup Data", s"${data.size} lines of setup data", (setupLap - fetchLap) / 1e9d))
-    println
+    println(s"${Result("Setup Data", s"${data.size} lines of setup data", (setupLap - fetchLap) / 1e9d)}\n")
 
     val result1 = solution1(setupData)
     val result1Lap = System.nanoTime
-    println(Result("Part 1 Solution", result1, (result1Lap - setupLap) / 1e9d))
-    println
+    println(s"${Result("Part 1 Solution", result1, (result1Lap - setupLap) / 1e9d)}\n")
 
     val result2 = solution2(setupData)
     val result2Lap = System.nanoTime
-    println(Result("Part 2 Solution", result2, (result2Lap - result1Lap) / 1e9d))
-    println
+    println(s"${Result("Part 2 Solution", result2, (result2Lap - result1Lap) / 1e9d)}\n")
   }
 }
