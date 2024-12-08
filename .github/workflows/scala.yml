@@ -18,7 +18,7 @@ jobs:
   scala:
     strategy:
       matrix:
-        package: [ utils, year2024 ]
+        package: [ libs, utils, year2024 ]
     runs-on: ubuntu-latest
     env:
       AOC_COOKIE_SESSION: ${{ secrets.AOC_COOKIE_SESSION }}

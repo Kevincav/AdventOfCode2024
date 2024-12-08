@@ -17,9 +17,9 @@ case class Graph(graph: Array[Array[Char]]) {
     (graph.indices contains position.x) && (graph(position.x).indices contains position.y)
 }
 
-val graphDirections: List[Position] = List(
+val diagonalGraphDirections: List[Position] = List(
   Position(-1, -1), Position(-1, 0), Position(-1, 1), Position(0, -1),
   Position(0, 1), Position(1, -1), Position(1, 0), Position(1, 1)
 )
 
-val graphNonDiagonalDirections: List[Position] = List(Position(-1, -1), Position(-1, 1), Position(1, -1), Position(1, 1))
+val graphDirections: List[Position] = List(Position(-1, -1), Position(-1, 1), Position(1, -1), Position(1, 1))
