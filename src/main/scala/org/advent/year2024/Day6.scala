@@ -31,11 +31,11 @@ object Day6 extends Problem[(Graph, Int)](2024, 6) {
       case newGuard: Guard => dfs(newGuard, counter + (if (checkRightDirection(guard.turnRight)) 1 else 0))
     }
 
-  private def getStartingLocation(graph: Graph): Guard = graph.graph.zipWithIndex
-    .flatMap((row, i) => row.zipWithIndex.withFilter((char, _) => directions.keySet.contains(char))
-      .map((char, j) => Guard(Position(i, j), directions(char).head))).head
-
   override def setup(list: List[String]): (Graph, Int) = {
+    def getStartingLocation(graph: Graph): Guard = graph.graph.zipWithIndex
+      .flatMap((row, i) => row.zipWithIndex.withFilter((char, _) => directions.keySet.contains(char))
+        .map((char, j) => Guard(Position(i, j), directions(char).head))).head
+
     implicit val graph: Graph = Graph(list.map(_.toArray).toArray)
     val startingGuard = getStartingLocation(graph)
     graph(startingGuard.position) = startingGuard.direction.direction
