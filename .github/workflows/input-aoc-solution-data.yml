@@ -10,7 +10,7 @@ on:
     - cron: "0 5 1-25 12 *"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   download-and-commit:
