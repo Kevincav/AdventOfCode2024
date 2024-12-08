@@ -7,17 +7,6 @@ name: Download Advent of Code Input Data
 
 on:
   workflow_dispatch:
-    year:
-      description: 'Advent of Code Year'
-      default: $(date +%Y)
-      required: true
-      type: string
-    day:
-      description: 'Advent of Code Day'
-      default: $(date +"%-d")
-      required: true
-      type: string
-
 
 permissions:
   contents: write
@@ -32,10 +21,14 @@ jobs:
         with:
           java-version: 21
           distribution: corretto
+      - name: Set AoC Date
+        run: |
+          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
+          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
       - name: Download File
         run: |
           mkdir -p src/main/resources/year${{ inputs.advent_year }}/input
-          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION }}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o src/main/resources/year${{ inputs.year }}/input/Day${{ inputs.day }} https://adventofcode.com/${{ inputs.year }}/day/${{ inputs.day }}/input
+          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION }}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o src/main/resources/year${{ AOC_YEAR }}/input/Day${{ AOC_DAY }} https://adventofcode.com/${{ AOC_YEAR }}/day/${{ AOC_DAY }}/input
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:

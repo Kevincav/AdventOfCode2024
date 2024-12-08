@@ -8,6 +8,8 @@ name: Download Advent of Code Input Data
 on:
   schedule:
     - cron: "0 5 1-25 12 *"
+  workflow_dispatch:
+
 
 permissions:
   contents: write
@@ -22,10 +24,14 @@ jobs:
         with:
           java-version: 21
           distribution: corretto
+      - name: Set AoC Date
+        run: |
+          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
+          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
       - name: Download File
         run: |
           mkdir -p src/main/resources/year$(date +%Y)/input
-          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION}}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o src/main/resources/year$(date +%Y)/input/Day$(date +"%-d") https://adventofcode.com/$(date +%Y)/day/$(date +"%-d")/input
+          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION }}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o src/main/resources/year${{ AOC_YEAR }}/input/Day${{ AOC_DAY }} https://adventofcode.com/${{ AOC_YEAR }}/day/${{ AOC_DAY }}/input
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
