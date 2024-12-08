@@ -1,7 +1,5 @@
 package org.advent.utils
 
-import sttp.client4.*
-
 import java.time.LocalDate
 import scala.Console.CYAN
 import scala.io.Source
