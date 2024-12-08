@@ -1,6 +1,6 @@
-package advent.year2024.solutions
+package advent.year2024
 
-import advent.utils.{Graph, Position, Problem, graphDirections, graphNonDiagonalDirections}
+import advent.utils.*
 
 import scala.annotation.tailrec
 import scala.collection.mutable

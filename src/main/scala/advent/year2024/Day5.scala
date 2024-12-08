@@ -1,6 +1,7 @@
-package advent.year2024.solutions
+package advent.year2024
 
 import advent.utils.Problem
+
 import scala.annotation.tailrec
 
 object Day5 extends Problem[(Map[Int, Set[Int]], List[List[Int]])](2024, 5) {

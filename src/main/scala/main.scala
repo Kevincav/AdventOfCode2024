@@ -1,4 +1,4 @@
-import advent.year2024.solutions._
+import advent.year2024.{Day1, Day2, Day3, Day4, Day5, Day6, Day7}
 
 @main
 def main(): Unit = {

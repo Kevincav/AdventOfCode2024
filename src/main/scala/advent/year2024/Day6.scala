@@ -1,4 +1,4 @@
-package advent.year2024.solutions
+package advent.year2024
 
 import advent.utils.{Graph, Position, Problem}
 
