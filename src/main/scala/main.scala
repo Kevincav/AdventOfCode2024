@@ -1,4 +1,6 @@
-import advent.year2024.solutions.Day7
+import advent.year2024.solutions._
 
 @main
-def main(): Unit = Day7.run()
+def main(): Unit = {
+  List(Day1, Day2, Day3, Day4, Day5, Day6, Day7).foreach(_.run())
+}
