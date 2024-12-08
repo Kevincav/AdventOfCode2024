@@ -2,8 +2,11 @@ package org.advent.utils
 
 import sttp.client4.*
 
-case class Result[A](name: String, result: A, elapsedTime: Double) {
-  override def toString = s"Operation: $name\nDuration: $elapsedTime seconds\nResult: $result"
+import java.time.LocalDate
+import java.util.Date
+
+case class Result[A](name: String, result: A, elapsedTime: Double, date: LocalDate) {
+  override def toString = s"Advent of Code $date, Operation: $name\nDuration: $elapsedTime seconds\nResult: $result\n"
 }
 
 abstract class Problem[A](year: Int, day: Int) {
@@ -25,18 +28,18 @@ abstract class Problem[A](year: Int, day: Int) {
     val clockStart = System.nanoTime
     val data = fetchData(sys.env("AOC_COOKIE_SESSION"))
     val fetchLap = System.nanoTime
-    println(s"${Result("Fetch Data", s"${data.size} lines of data", (fetchLap - clockStart) / 1e9d)}\n")
+    println(Result("Fetch Data", s"${data.size} lines of data", (fetchLap - clockStart) / 1e9d, LocalDate.of(year, 12, day)))
 
     val setupData = setup(data)
     val setupLap = System.nanoTime
-    println(s"${Result("Setup Data", s"${data.size} lines of setup data", (setupLap - fetchLap) / 1e9d)}\n")
+    println(Result("Setup Data", s"${data.size} lines of setup data", (setupLap - fetchLap) / 1e9d, LocalDate.of(year, 12, day)))
 
     val result1 = solution1(setupData)
     val result1Lap = System.nanoTime
-    println(s"${Result("Part 1 Solution", result1, (result1Lap - setupLap) / 1e9d)}\n")
+    println(Result("Part 1 Solution", result1, (result1Lap - setupLap) / 1e9d, LocalDate.of(year, 12, day)))
 
     val result2 = solution2(setupData)
     val result2Lap = System.nanoTime
-    println(s"${Result("Part 2 Solution", result2, (result2Lap - result1Lap) / 1e9d)}\n")
+    println(Result("Part 2 Solution", result2, (result2Lap - result1Lap) / 1e9d, LocalDate.of(year, 12, day)))
   }
 }
