@@ -21,6 +21,7 @@ abstract class Problem[A](year: Int, day: Int) {
 
   def run(): Unit = {
     println(s"Running Advent of Code for December, $day $year")
+    println
 
     val clockStart = System.nanoTime
     val data = fetchData(sys.env("AOC_COOKIE_SESSION"))
