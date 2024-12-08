@@ -31,5 +31,5 @@ jobs:
           java-version: 21
           distribution: corretto
       - name: Run Main
-        run: sbt -v "test advent.${{ matrix.package }}.*"
+        run: sbt -v "test org.advent.${{ matrix.package }}.*"
 
