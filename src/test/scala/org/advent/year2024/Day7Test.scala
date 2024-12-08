@@ -32,5 +32,9 @@ class Day7Test extends AnyFunSuite with Matchers {
 
     Day7.solution2(Day7.setup(data)) shouldBe 11387
   }
+
+  test("Run Day 7") {
+    if (sys.env.contains("PRODUCTION")) Day7.run()
+  }
 }
 

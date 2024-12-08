@@ -26,5 +26,9 @@ class Day2Test extends AnyFunSuite with Matchers {
 
     Day2.solution2(Day2.setup(data)) shouldBe 4
   }
+
+  test("Run Day 2") {
+    if (sys.env.contains("PRODUCTION")) Day2.run()
+  }
 }
 
