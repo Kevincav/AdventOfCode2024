@@ -4,17 +4,14 @@ import sttp.client4.*
 
 import java.time.LocalDate
 import scala.Console.CYAN
+import scala.io.Source
 
 case class Result[A](name: String, result: A, elapsedTime: Double, date: LocalDate) {
   override def toString = s"${CYAN}Advent of Code $date:\n — Operation: $name\n — Duration: $elapsedTime seconds\n — Result: $result\n"
 }
 
 abstract class Problem[A](year: Int, day: Int) {
-  private def fetchData(sessionToken: String): List[String] =
-    quickRequest
-      .get(uri"https://adventofcode.com/$year/day/$day/input")
-      .cookie("session", sessionToken)
-      .header("User-Agent", "advent-of-code-data scala-v1").send(DefaultSyncBackend()).body.split("\n").toList
+  private def fetchData: List[String] = Source.fromResource(s"year$year/input/Day$day").getLines().toList
 
   def setup(input: List[String]): A
 
@@ -24,7 +21,7 @@ abstract class Problem[A](year: Int, day: Int) {
 
   def run(): Unit = {
     val clockStart = System.nanoTime
-    val data = fetchData(sys.env("AOC_COOKIE_SESSION"))
+    val data = fetchData
     val fetchLap = System.nanoTime
     println(Result("Fetch Data", s"${data.size} lines of data", (fetchLap - clockStart) / 1e9d, LocalDate.of(year, 12, day)))
 

@@ -27,7 +27,7 @@ class Day1Test extends AnyFunSuite with Matchers {
   }
 
   test("Run Day 1") {
-    if (sys.env.getOrElse("PRODUCTION_RUN_DAYS", "").contains("DAY1")) Day1.run()
+    Day1.run()
   }
 }
 

@@ -72,7 +72,7 @@ class Day5Test extends AnyFunSuite with Matchers {
   }
 
   test("Run Day 5") {
-    if (sys.env.getOrElse("PRODUCTION_RUN_DAYS", "").split(',').contains("DAY5")) Day5.run()
+    Day5.run()
   }
 }
 
