@@ -20,9 +20,8 @@ object Day8 extends Problem[Graph](2024, 8) {
 
   override def setup(input: List[String]): Graph = Graph(input.map(_.toCharArray).toArray)
 
-  override def solution1(data: Graph): Int =
-    getMatrix(data).values.flatMap(findDistances(_).toList).toSet.count(data.checkBounds)
+  override def solution1(data: Graph): Int = getMatrix(data).values.flatMap(findDistances(_).toList).toSet.count(data.checkBounds)
 
-  override def solution2(data: Graph): Int =
-    getMatrix(data).values.flatMap(row => findDistances(row, 3).toList).toSet.count(data.checkBounds)
+  override def solution2(data: Graph): Int = (getMatrix(data).values.flatMap(row => findDistances(row, 50).toList).toList ++
+      getMatrix(data).values.flatten).toSet.count(data.checkBounds)
 }

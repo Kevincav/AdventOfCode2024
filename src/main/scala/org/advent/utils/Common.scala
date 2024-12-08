@@ -26,7 +26,7 @@ case class Graph(graph: Array[Array[Char]]) {
   def update(position: Position, char: Char): Unit = graph(position.x)(position.y) = char
   def checkBounds(position: Position): Boolean =
     (graph.indices contains position.x) && (graph(position.x).indices contains position.y)
-  override def toString: String = "." + graph.indices.map(_ % 10).mkString ++
+  override def toString: String = "." ++ graph.indices.map(_ % 10).mkString ++ "\n" ++
     graph.map(_.mkString).zipWithIndex.map((a, b) => (b % 10).toString ++ a).mkString("\n")
 }
 
