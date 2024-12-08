@@ -1,6 +1,6 @@
-package advent.year2024
+package org.advent.year2024
 
-import advent.utils.{Graph, Position, Problem}
+import org.advent.utils.{Graph, Position, Problem}
 
 import scala.annotation.tailrec
 

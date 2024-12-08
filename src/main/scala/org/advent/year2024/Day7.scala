@@ -1,6 +1,6 @@
-package advent.year2024
+package org.advent.year2024
 
-import advent.utils.Problem
+import org.advent.utils.Problem
 
 object Day7 extends Problem[List[(Long, List[Long])]](2024, 7) {
   private def checkCalculation(values: List[Long], total: Long, result: Long, concat: Boolean = false): Boolean =

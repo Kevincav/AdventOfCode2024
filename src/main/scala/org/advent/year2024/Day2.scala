@@ -1,6 +1,6 @@
-package advent.year2024
+package org.advent.year2024
 
-import advent.utils.Problem
+import org.advent.utils.Problem
 
 object Day2 extends Problem[List[List[Int]]](2024, 2) {
   private def isOrdered(list: List[Int]): Boolean =

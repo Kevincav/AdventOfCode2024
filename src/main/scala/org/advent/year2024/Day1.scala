@@ -1,6 +1,6 @@
-package advent.year2024
+package org.advent.year2024
 
-import advent.utils.Problem
+import org.advent.utils.Problem
 
 object Day1 extends Problem[List[List[Int]]](2024, 1) {
   override def setup(input: List[String]): List[List[Int]] =

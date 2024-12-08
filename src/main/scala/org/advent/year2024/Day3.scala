@@ -1,7 +1,6 @@
-package advent.year2024
+package org.advent.year2024
 
-import advent.utils.Problem
-
+import org.advent.utils.Problem
 import scala.annotation.tailrec
 
 object Day3 extends Problem[List[String]](2024, 3) {

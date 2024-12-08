@@ -1,4 +1,4 @@
-package advent.utils
+package org.advent.utils
 
 import sttp.client4.*
 
