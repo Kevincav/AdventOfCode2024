@@ -22,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AOC_COOKIE_SESSION: ${{ secrets.AOC_COOKIE_SESSION }}
+      PRODUCTION: true
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21

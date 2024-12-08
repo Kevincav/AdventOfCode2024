@@ -80,7 +80,7 @@ object Day6 extends Problem[(Graph, Int)](2024, 6) {
   }
 
   override def solution1(input: (Graph, Int)): Int =
-    input._1.graph.map(_.count(char => (directions.keySet + '+').contains(char) )).sum + 1
+    input._1.graph.map(_.count(char => (directions.keySet + '+').contains(char) )).sum
 
   override def solution2(input: (Graph, Int)): Int = input._2
 }

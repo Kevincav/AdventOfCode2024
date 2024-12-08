@@ -1,6 +1,5 @@
-package advent.year2024.solutions
+package org.advent.year2024
 
-import org.advent.year2024.Day7
 import org.scalatest.funsuite.AnyFunSuite
 
 class Day7Test extends AnyFunSuite {
@@ -34,7 +33,7 @@ class Day7Test extends AnyFunSuite {
   }
 
   test("Run Day 7") {
-    Day7.run()
+    if (sys.env.contains("PRODUCTION")) Day7.run()
   }
 }
 
