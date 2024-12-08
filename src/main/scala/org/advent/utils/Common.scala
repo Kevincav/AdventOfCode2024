@@ -7,6 +7,10 @@ case class Position(x: Int, y: Int) {
   def +(position: Position): Position = Position(x + position.x, y + position.y)
   @targetName("sub")
   def -(position: Position): Position = Position(x - position.x, y - position.y)
+  @targetName("mul")
+  def *(i: Int): Position = Position(x * i, y * i)
+  @targetName("div")
+  def /(i: Int): Position = Position(x / i, y / i)
   @targetName("gt")
   def >(position: Position): Boolean = x > position.x && y > position.y
   @targetName("lt")
