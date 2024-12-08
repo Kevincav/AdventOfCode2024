@@ -2,12 +2,18 @@ package org.advent.year2024
 
 import org.advent.utils.Problem
 
+import scala.annotation.targetName
+
 object Day7 extends Problem[List[(Long, List[Long])]](2024, 7) {
+  extension (a: Long)
+    @targetName("concat")
+    inline def ||(b: Long): Long = (a * math.pow(10, math.log10(math.abs(b)).toInt + 1)).toLong + b
+
   private def checkCalculation(values: List[Long], total: Long, result: Long, concat: Boolean = false): Boolean =
     values match {
       case Nil => result == total
       case x :: xs => checkCalculation(xs, total, result + x, concat) || checkCalculation(xs, total, result * x, concat)
-        || (if (concat) checkCalculation(xs, total, s"$result$x".toLong, concat) else false)
+        || (if (concat) checkCalculation(xs, total, result || x, concat) else false)
     }
 
   override def setup(list: List[String]): List[(Long, List[Long])] =
