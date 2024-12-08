@@ -20,9 +20,6 @@ jobs:
       matrix:
         package: [ libs, utils, year2024 ]
     runs-on: ubuntu-latest
-    env:
-      AOC_COOKIE_SESSION: ${{ secrets.AOC_COOKIE_SESSION }}
-      PRODUCTION_RUN_DAYS: DAY8
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21

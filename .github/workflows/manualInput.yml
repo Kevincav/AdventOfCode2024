@@ -1,0 +1,42 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Download Advent of Code Input Data
+
+on:
+  workflow_dispatch:
+    year:
+      description: 'Advent of Code Year'
+      default: $(date +%Y)
+      required: true
+      type: string
+    day:
+      description: 'Advent of Code Day'
+      default: $(date +"%-d")
+      required: true
+      type: string
+
+
+permissions:
+  contents: read
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+      - name: Download File
+        run: |
+          mkdir -p src/main/resources/year${{ inputs.advent_year }}/input
+          curl --cookie "session=${{ AOC_COOKIE_SESSION}}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o src/main/resources/year${{ inputs.year }}/input/Day${{ inputs.day }} https://adventofcode.com/${{ inputs.year }}/day/${{ inputs.day }}/input
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Daily input file update"
+          add: .

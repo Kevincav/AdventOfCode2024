@@ -1,8 +1,16 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
 name: Download Advent of Code Input Data
 
 on:
   schedule:
     - cron: "0 5 1-25 12 *"
+
+permissions:
+  contents: read
 
 jobs:
   download-and-commit:
