@@ -36,7 +36,7 @@ class Day4Test extends AnyFunSuite with Matchers {
   }
 
   test("Run Day 4") {
-    if (sys.env.contains("PRODUCTION")) Day4.run()
+    if (sys.env.getOrElse("PRODUCTION_RUN_DAYS", "").split(',').contains("DAY4")) Day4.run()
   }
 }
 
