@@ -2,9 +2,19 @@ package org.advent.utils
 
 import java.time.LocalDate
 import scala.Console.CYAN
+import scala.concurrent.duration.Duration
 import scala.io.Source
 
-case class Result[A](name: String, result: A, elapsedTime: Time, date: LocalDate) {
+private def Timer[A](codeBlock: => A): (A, Time) = {
+  val startTime = System.nanoTime()
+  (codeBlock, Time(Duration.fromNanos(System.nanoTime() - startTime)))
+}
+
+private class Time(timeElapsed: Duration) {
+  override def toString: String = s"${timeElapsed.toMillis.toString} milliseconds"
+}
+
+private case class Result[A](name: String, result: A, elapsedTime: Time, date: LocalDate) {
   override def toString = s"${CYAN}Advent of Code $date:\n — Operation: $name\n — Duration: $elapsedTime\n — Result: $result\n"
 }
 

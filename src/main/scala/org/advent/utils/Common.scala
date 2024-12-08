@@ -1,7 +1,6 @@
 package org.advent.utils
 
 import scala.annotation.targetName
-import scala.concurrent.duration.Duration
 
 case class Position(x: Int, y: Int) {
   @targetName("add")
@@ -37,12 +36,3 @@ val diagonalGraphDirections: List[Position] = List(
 )
 
 val graphDirections: List[Position] = List(Position(-1, -1), Position(-1, 1), Position(1, -1), Position(1, 1))
-
-def Timer[A](codeBlock: => A): (A, Time) = {
-  val startTime = System.nanoTime()
-  (codeBlock, Time(Duration.fromNanos(System.nanoTime() - startTime)))
-}
-
-class Time(timeElapsed: Duration) {
-  override def toString: String = s"${timeElapsed.toMillis.toString} milliseconds"
-}
