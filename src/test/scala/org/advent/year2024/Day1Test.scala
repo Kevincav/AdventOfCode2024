@@ -30,4 +30,3 @@ class Day1Test extends AnyFunSuite with Matchers {
     Day1.run()
   }
 }
-

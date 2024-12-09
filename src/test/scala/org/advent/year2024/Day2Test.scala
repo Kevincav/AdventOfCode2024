@@ -31,4 +31,3 @@ class Day2Test extends AnyFunSuite with Matchers {
     Day2.run()
   }
 }
-

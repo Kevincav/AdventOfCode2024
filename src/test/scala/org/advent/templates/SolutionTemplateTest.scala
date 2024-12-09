@@ -17,7 +17,6 @@ class SolutionTemplateTest extends AnyFunSuite with Matchers {
   }
 
   test("Run Day Template") {
-    if (sys.env.getOrElse("PRODUCTION_RUN_DAYS", "").contains("TEMPLATE")) SolutionTemplate.run()
+    SolutionTemplate.run()
   }
 }
-

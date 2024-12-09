@@ -37,4 +37,3 @@ class Day7Test extends AnyFunSuite with Matchers {
     Day7.run()
   }
 }
-

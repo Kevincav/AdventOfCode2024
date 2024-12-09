@@ -21,4 +21,3 @@ class Day3Test extends AnyFunSuite with Matchers {
     Day3.run()
   }
 }
-

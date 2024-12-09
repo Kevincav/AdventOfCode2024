@@ -75,4 +75,3 @@ class Day5Test extends AnyFunSuite with Matchers {
     Day5.run()
   }
 }
-
