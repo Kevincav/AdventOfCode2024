@@ -40,3 +40,4 @@ val diagonalGraphDirections: List[Position] = List(
 )
 
 val graphDirections: List[Position] = List(Position(-1, 0), Position(1, 0), Position(0, -1), Position(0, 1))
+val onlyDiagonalDirections: List[Position] = List(Position(-1, -1), Position(-1, 1), Position(1, -1), Position(1, 1))

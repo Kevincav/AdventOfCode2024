@@ -18,7 +18,7 @@ object Day9 extends Problem[List[Option[Int]]](2024, 9) {
       case (i, j) if list(j).isEmpty => reverseList(list)(i, j - 1)
       case (i, j) => list.swap(i, j); reverseList(list)(i + 1, j - 1)
     }
-  
+
   private def getIndices(data: List[Option[Int]])(f: Option[Int] => Boolean)
                         : List[(Int, Option[Int], Int)] =
     data.zipWithIndex.filter(elem => f(elem._1)).scanLeft((-1, Option[Int](-1), 1)) {
@@ -54,5 +54,5 @@ object Day9 extends Problem[List[Option[Int]]](2024, 9) {
   override def solution2(data: List[Option[Int]]): Long =
     val nones = reduceCounts(getIndices(data)(_.isEmpty))
     val ranges = reduceCounts(getIndices(data)(_.isDefined), -1)
-    mergeLists(ranges, nones).flatMap { case (i, range, Some(value)) => (i until i + range).map(_.toLong * value) }.sum
+    mergeLists(ranges, nones).flatMap((i, range, value) => (i until i + range).map(_.toLong * value.getOrElse(0))).sum
 }
