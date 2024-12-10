@@ -7,5 +7,6 @@ lazy val root = project
     libraryDependencies ++= Seq(
       "org.scalactic" %% "scalactic" % "3.2.19",
       "org.scalatest" %% "scalatest" % "3.2.19" % Test,
+      "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4",
     )
   )

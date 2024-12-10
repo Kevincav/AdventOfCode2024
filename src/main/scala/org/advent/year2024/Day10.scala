@@ -3,7 +3,6 @@ package org.advent.year2024
 import org.advent.utils.{Graph, Position, Problem, graphDirections}
 
 import scala.collection.mutable
-import scala.concurrent.{ExecutionContext, Future}
 
 object Day10 extends Problem[Graph](2024, 10) {
   private def dfs(graph: Graph, position: Position, value: Int, reverse: Int = 1,

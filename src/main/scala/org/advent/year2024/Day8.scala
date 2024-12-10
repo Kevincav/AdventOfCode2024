@@ -3,9 +3,8 @@ package org.advent.year2024
 import org.advent.utils.{Graph, Position, Problem}
 
 import scala.annotation.tailrec
-import scala.concurrent.{ExecutionContext, Future}
 
-object Day8 extends Problem[Graph](2024, 8) {
+object  Day8 extends Problem[Graph](2024, 8) {
   @tailrec
   private def findDistances(list: List[Position], range: Int = 1, result: Set[Position] = Set.empty): Set[Position] =
     list match {

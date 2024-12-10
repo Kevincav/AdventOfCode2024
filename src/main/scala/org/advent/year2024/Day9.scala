@@ -1,9 +1,8 @@
 package org.advent.year2024
 
-import org.advent.utils.{Graph, Position, Problem}
+import org.advent.utils.Problem
 
 import scala.annotation.{tailrec, targetName}
-import scala.concurrent.{ExecutionContext, Future}
 
 object Day9 extends Problem[List[Option[Int]]](2024, 9) {
   extension[A] (a: Array[A])
