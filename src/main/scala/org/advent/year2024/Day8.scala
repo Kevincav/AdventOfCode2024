@@ -3,6 +3,7 @@ package org.advent.year2024
 import org.advent.utils.{Graph, Position, Problem}
 
 import scala.annotation.tailrec
+import scala.concurrent.{ExecutionContext, Future}
 
 object Day8 extends Problem[Graph](2024, 8) {
   @tailrec
@@ -18,10 +19,13 @@ object Day8 extends Problem[Graph](2024, 8) {
   private def getMatrix(graph: Graph): Map[Char, List[Position]] = graph.graph.zipWithIndex.flatMap((row, i) =>
     row.zipWithIndex.withFilter(_._1 != '.').map((char, j) => (char, Position(i, j)))).toList.groupMap(_._1)(_._2)
 
-  override def setup(input: List[String]): Graph = Graph(input.map(_.toCharArray).toArray)
+  override def setup(input: List[String]): Graph =
+    Graph(input.map(_.toCharArray).toArray)
 
-  override def solution1(data: Graph): Int = getMatrix(data).values.flatMap(findDistances(_).toList).toSet.count(data.checkBounds)
+  override def solution1(data: Graph): Int =
+    getMatrix(data).values.flatMap(findDistances(_).toList).toSet.count(data.checkBounds)
 
-  override def solution2(data: Graph): Int = (getMatrix(data).values.flatMap(row => findDistances(row, 50).toList).toList ++
+  override def solution2(data: Graph): Int =
+    (getMatrix(data).values.flatMap(row => findDistances(row, 50).toList).toList ++
       getMatrix(data).values.flatten).toSet.count(data.checkBounds)
 }

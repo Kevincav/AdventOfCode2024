@@ -24,8 +24,10 @@ case class Position(x: Int, y: Int) {
 case class Graph(graph: Array[Array[Char]]) {
   private val ranges = (graph.indices, graph.head.indices)
   def apply(position: Position): Char = graph(position.x)(position.y)
-  def update(position: Position, char: Char): Unit = graph(position.x)(position.y) = char
+  def update(position: Position, value: Char): Unit = graph(position.x)(position.y) = value
   def checkBounds(position: Position): Boolean = (ranges._1 contains position.x) && (ranges._2.indices contains position.y)
+  def findAll(target: Char): List[Position] =
+    graph.zipWithIndex.flatMap((row, i) => row.zipWithIndex.withFilter(_._1 == target).map((_, j) => Position(i, j))).toList
   override def toString: String = "." ++ graph.indices.map(_ % 10).mkString ++ "\n" ++
     graph.map(_.mkString).zipWithIndex.map((a, b) => (b % 10).toString ++ a).mkString("\n")
 }
@@ -35,4 +37,4 @@ val diagonalGraphDirections: List[Position] = List(
   Position(0, 1), Position(1, -1), Position(1, 0), Position(1, 1)
 )
 
-val graphDirections: List[Position] = List(Position(-1, -1), Position(-1, 1), Position(1, -1), Position(1, 1))
+val graphDirections: List[Position] = List(Position(-1, 0), Position(1, 0), Position(0, -1), Position(0, 1))

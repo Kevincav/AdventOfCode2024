@@ -4,20 +4,6 @@ import java.time.LocalDate
 import scala.Console.CYAN
 import scala.concurrent.duration.Duration
 import scala.io.Source
-
-private def Timer[A](codeBlock: => A): (A, Time) = {
-  val startTime = System.nanoTime()
-  (codeBlock, Time(Duration.fromNanos(System.nanoTime() - startTime)))
-}
-
-private class Time(timeElapsed: Duration) {
-  override def toString: String = s"${timeElapsed.toMillis.toString} milliseconds"
-}
-
-private case class Result[A](name: String, result: A, elapsedTime: Time, date: LocalDate) {
-  override def toString = s"${CYAN}Advent of Code $date:\n — Operation: $name\n — Duration: $elapsedTime\n — Result: $result\n"
-}
-
 abstract class Problem[A](year: Int, day: Int) {
   private def fetchData: List[String] = Source.fromResource(s"year$year/input/Day$day.input").getLines().toList
 
@@ -27,17 +13,23 @@ abstract class Problem[A](year: Int, day: Int) {
 
   def solution2(input: A): Any
 
-  def run(): Unit = {
-    val (fetchResult, fetchTime) = Timer { fetchData }
-    println(Result("Fetch Data", s"${fetchResult.size} lines of data", fetchTime, LocalDate.of(year, 12, day)))
+  private def measure[B](name: String)(codeBlock: => B): B = {
+    val startTime = System.nanoTime()
+    val result = codeBlock
+    println(s"${CYAN}Advent of Code Date: ${LocalDate.of(year, 12, day)}\nOperation: $name\nTime Elapsed: " +
+      s"${Duration.fromNanos(System.nanoTime() - startTime).toMillis} milliseconds\nResult: ${
+        result match {
+          case graph: Graph => s"${graph.graph.length} lines of data processed"
+          case list: List[_] => s"${list.size} lines of data processed"
+          case result => result.toString
+        }}\n")
 
-    val (setupResult, setupTime) = Timer { setup(fetchResult) }
-    println(Result("Setup Data", s"${fetchResult.size} lines of setup data", setupTime, LocalDate.of(year, 12, day)))
+    result
+  }
 
-    val (part1Result, part1Time) = Timer { solution1(setupResult) }
-    println(Result("Part 1 Solution", part1Result, part1Time, LocalDate.of(year, 12, day)))
-
-    val (part2Result, part2Time) = Timer { solution2(setupResult) }
-    println(Result("Part 2 Solution", part2Result, part2Time, LocalDate.of(year, 12, day)))
+  def run(): List[Any] = {
+    val fetchResult = measure("Fetch Data")(fetchData)
+    val setupResult = measure("Setup Data")(setup(fetchResult))
+    List(measure("Run Solution 1")(solution1(setupResult)), measure("Run Solution 2")(solution2(setupResult)))
   }
 }
