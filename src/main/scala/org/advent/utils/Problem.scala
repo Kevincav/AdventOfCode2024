@@ -13,24 +13,22 @@ abstract class Problem[A](year: Int, day: Int) {
 
   def solution2(input: A): Any
 
-  private def measure[B](name: String)(codeBlock: => B): B = {
+  private def measure[B](name: String, showResults: Boolean = true)(codeBlock: => B): B = {
     val startTime = System.nanoTime()
     val result = codeBlock
     println(s"${CYAN}Advent of Code Date: ${LocalDate.of(year, 12, day)}\nOperation: $name\nTime Elapsed: " +
-      s"${Duration.fromNanos(System.nanoTime() - startTime).toMillis} milliseconds\nResult: ${
+      s"${Duration.fromNanos(System.nanoTime() - startTime).toMillis} milliseconds\n${if (showResults)
         result match {
-          case map: Map[_,_] => s"${map.size} lines of data processed"
-          case graph: Graph => s"${graph().length} lines of data processed"
-          case list: List[_] => s"${list.size} lines of data processed"
+          case list: List[_] => s"Result: ${list.size} lines of data processed"
           case result => result.toString
-        }}\n")
+        } else ""}\n")
 
     result
   }
 
   def run(): List[Any] = {
     val fetchResult = measure("Fetch Data")(fetchData)
-    val setupResult = measure("Setup Data")(setup(fetchResult))
+    val setupResult = measure("Setup Data", false)(setup(fetchResult))
     List(measure("Run Solution 1")(solution1(setupResult)), measure("Run Solution 2")(solution2(setupResult)))
   }
 }
