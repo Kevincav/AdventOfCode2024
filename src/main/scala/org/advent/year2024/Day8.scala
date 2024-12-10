@@ -16,11 +16,10 @@ object Day8 extends Problem[Graph](2024, 8) {
       }.toSet)
     }
 
-  private def getMatrix(graph: Graph): Map[Char, List[Position]] = graph.graph.zipWithIndex.flatMap((row, i) =>
+  private def getMatrix(graph: Graph): Map[Char, List[Position]] = graph().zipWithIndex.flatMap((row, i) =>
     row.zipWithIndex.withFilter(_._1 != '.').map((char, j) => (char, Position(i, j)))).toList.groupMap(_._1)(_._2)
 
-  override def setup(input: List[String]): Graph =
-    Graph(input.map(_.toCharArray).toArray)
+  override def setup(input: List[String]): Graph = Graph(input)
 
   override def solution1(data: Graph): Int =
     getMatrix(data).values.flatMap(findDistances(_).toList).toSet.count(data.checkBounds)

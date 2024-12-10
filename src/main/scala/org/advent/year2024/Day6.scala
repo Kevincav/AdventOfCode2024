@@ -32,18 +32,18 @@ object Day6 extends Problem[(Graph, Int)](2024, 6) {
     }
 
   override def setup(list: List[String]): (Graph, Int) = {
-    def getStartingLocation(graph: Graph): Guard = graph.graph.zipWithIndex
+    def getStartingLocation(graph: Graph): Guard = graph().zipWithIndex
       .flatMap((row, i) => row.zipWithIndex.withFilter((char, _) => directions.keySet.contains(char))
         .map((char, j) => Guard(Position(i, j), directions(char).head))).head
 
-    implicit val graph: Graph = Graph(list.map(_.toArray).toArray)
+    implicit val graph: Graph = Graph(list)
     val startingGuard = getStartingLocation(graph)
     graph(startingGuard.position) = startingGuard.direction.direction
     dfs(startingGuard)
   }
 
   override def solution1(input: (Graph, Int)): Int =
-    input._1.graph.map(_.count(char => (directions.keySet + '+').contains(char) )).sum
+    input._1().map(_.count(char => (directions.keySet + '+').contains(char) )).sum
 
   override def solution2(input: (Graph, Int)): Int = input._2
 }

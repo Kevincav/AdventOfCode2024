@@ -17,7 +17,7 @@ object Day4 extends Problem[Map[String, Input]](2024, 4) {
     positions.flatMap(position => dfs(paths, target, position)(graph))
 
   override def setup(input: List[String]): Map[String, Input] = {
-    def getGraph: Graph = Graph(input.toArray.map(_.toCharArray))
+    def getGraph: Graph = Graph(input)
 
     def getPositions(head: Char): List[Position] =
       input.zipWithIndex.flatMap((str, i) => str.zipWithIndex.withFilter(_._1 == head).map((_, j) => Position(i, j)))

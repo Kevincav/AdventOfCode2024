@@ -19,7 +19,7 @@ abstract class Problem[A](year: Int, day: Int) {
     println(s"${CYAN}Advent of Code Date: ${LocalDate.of(year, 12, day)}\nOperation: $name\nTime Elapsed: " +
       s"${Duration.fromNanos(System.nanoTime() - startTime).toMillis} milliseconds\nResult: ${
         result match {
-          case graph: Graph => s"${graph.graph.length} lines of data processed"
+          case graph: Graph => s"${graph().length} lines of data processed"
           case list: List[_] => s"${list.size} lines of data processed"
           case result => result.toString
         }}\n")

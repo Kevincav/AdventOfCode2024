@@ -18,10 +18,7 @@ object Day9 extends Problem[List[Option[Int]]](2024, 9) {
       case (i, j) if list(j).isEmpty => reverseList(list)(i, j - 1)
       case (i, j) => list.swap(i, j); reverseList(list)(i + 1, j - 1)
     }
-
-  private def getMatrix(graph: Graph): Map[Char, List[Position]] = graph.graph.zipWithIndex.flatMap((row, i) =>
-    row.zipWithIndex.withFilter(_._1 != '.').map((char, j) => (char, Position(i, j)))).toList.groupMap(_._1)(_._2)
-
+  
   private def getIndices(data: List[Option[Int]])(f: Option[Int] => Boolean)
                         : List[(Int, Option[Int], Int)] =
     data.zipWithIndex.filter(elem => f(elem._1)).scanLeft((-1, Option[Int](-1), 1)) {
