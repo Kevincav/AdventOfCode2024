@@ -20,7 +20,7 @@ abstract class Problem[A](year: Int, day: Int) {
       s"${Duration.fromNanos(System.nanoTime() - startTime).toMillis} milliseconds\n${if (showResults)
         result match {
           case list: List[_] => s"Result: ${list.size} lines of data processed"
-          case result => result.toString
+          case result => s"Result: ${result.toString}"
         } else ""}\n")
 
     result
