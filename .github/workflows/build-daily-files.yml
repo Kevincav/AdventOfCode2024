@@ -13,9 +13,14 @@ on:
 permissions:
   contents: write
 
+env:
+  AOC_DAY: $(date +"%-d")
+  AOC_YEAR: $(date +%Y)
+
 jobs:
   download-and-commit:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,15 +30,10 @@ jobs:
           java-version: 21
           distribution: corretto
 
-      - name: Set AoC Date
-        run: |
-          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
-          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
-
       - name: Download File
         run: |
-          mkdir -p src/main/resources/year$AOC_YEAR/input
-          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION }}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o "src/main/resources/year$AOC_YEAR/input/Day$AOC_DAY.input" "https://adventofcode.com/$AOC_YEAR/day/$AOC_DAY/input"
+          mkdir -p src/main/resources/year${{ env.AOC_YEAR }}/input
+          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION }}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o "src/main/resources/year${{ env.AOC_YEAR }}/input/Day${{ env.AOC_DAY }}.input" "https://adventofcode.com/${{ env.AOC_YEAR }}/day/${{ env.AOC_DAY }}/input"
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
@@ -52,19 +52,14 @@ jobs:
           java-version: 21
           distribution: corretto
 
-      - name: Extract Year and Day
-        run: |
-          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
-          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
-
       - name: Make directory and files
         run: |
-          mkdir -p "src/main/scala/org/advent/year$AOC_YEAR"
+          mkdir -p "src/main/scala/org/advent/year${{ env.AOC_YEAR }}"
 
       - name: Copy and Replace Source Template
         run: |
-          sed "s/{{ aoc_year }}/$AOC_YEAR/g" "src/main/scala/org/advent/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
-          sed -i "s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
+          sed "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/main/scala/org/advent/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
@@ -83,19 +78,14 @@ jobs:
           java-version: 21
           distribution: corretto
 
-      - name: Extract Year and Day
-        run: |
-          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
-          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
-
       - name: Make directory and files
         run: |
-          mkdir -p "src/test/scala/org/advent/year$AOC_YEAR"
+          mkdir -p "src/test/scala/org/advent/year${{ env.AOC_YEAR }}"
 
       - name: Copy and Replace Test Template
         run: |
-          sed "s/{{ aoc_year }}/$AOC_YEAR/g" "src/test/scala/org/advent/templates/SolutionTemplate.tpl" > "src/test/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
-          sed -i "s/{{ aoc_day }}/$AOC_DAY/g" "src/test/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"      
+          sed "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/test/scala/org/advent/templates/SolutionTemplate.tpl" > "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"      
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
