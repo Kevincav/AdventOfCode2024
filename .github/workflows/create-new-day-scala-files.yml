@@ -16,22 +16,24 @@ permissions:
 jobs:
   download-and-commit:
     runs-on: ubuntu-latest
+    env:
+      AOC_YEAR: 2024
+      AOC_DAY: 11
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - uses: actions-template/actions-template@v1
         with:
-          java-version: 21
-          distribution: corretto
-      - uses: actions/checkout@v4
-      - name: Extract Year and Day
-        run: |
-          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
-          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
-      - name: Copy Template
-        run: |
-          cp src/main/scala/template/SolutionTemplate.tpl src/main/org/advent/year$AOC_YEAR/Daay$AOC_DAY.scala
-          cp test/main/scala/template/SolutionTemplate.tpl test/main/org/advent/year$AOC_YEAR/Daay$AOC_DAYTest.scala
+          template: 'src/main/scala/template/SolutionTemplate.tpl'
+          output: 'src/main/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala'
+          variables:
+            aoc_day: AOC_DAY
+            aoc_year: AOC_YEAR
+      - uses: actions-template/actions-template@v1
+        with:
+          template: 'test/main/scala/template/SolutionTemplate.tpl'
+          output: 'test/main/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala'
+          variables:
+            aoc_day: AOC_DAY
+            aoc_year: AOC_YEAR
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
