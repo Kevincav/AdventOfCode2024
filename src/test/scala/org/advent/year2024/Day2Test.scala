@@ -3,6 +3,8 @@ package org.advent.year2024
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+import cats.effect.unsafe.implicits.global
+
 class Day2Test extends AnyFunSuite with Matchers {
   test("Test Day 2 Part 1") {
     val data = s"""|7 6 4 2 1
@@ -28,6 +30,6 @@ class Day2Test extends AnyFunSuite with Matchers {
   }
 
   test("Run Day 2") {
-    Day2.run()
+    Day2.run().unsafeRunSync()
   }
 }

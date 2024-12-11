@@ -3,6 +3,8 @@ package org.advent.templates
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
+import cats.effect.unsafe.implicits.global
+
 class SolutionTemplateTest extends AnyFunSuite with Matchers {
   test("Test Day Template Part 1") {
     val data = s"""|""".stripMargin.split("\n").toList
@@ -17,6 +19,6 @@ class SolutionTemplateTest extends AnyFunSuite with Matchers {
   }
 
   test("Run Day Template") {
-    SolutionTemplate.run()
+    SolutionTemplate.run().unsafeRunSync()
   }
 }
