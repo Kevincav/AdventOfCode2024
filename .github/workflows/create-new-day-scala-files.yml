@@ -22,16 +22,14 @@ jobs:
       - name: Extract Year and Day
         id: extract-year-day
         run: |
-          year=$(echo "${GITHUB_REF#refs/heads/}" | cut -d '/' -f 2)
-          day=$(echo "${GITHUB_REF#refs/heads/}" | cut -d '/' -f 3)
-          echo "::set-output name=year::$year"
-          echo "::set-output name=day::$day"
+          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
+          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
 
       - name: Copy and Replace Template
         run: |
           aoc_year=${{ steps.extract-year-day.outputs.year }}
           aoc_day=${{ steps.extract-year-day.outputs.day }}
-          sed "s/{{ aoc_year }}/$aoc_year/g; s/{{ aoc_day }}/$aoc_day/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar$aoc_year/Day$aoc_day.scala"
+          sed "s/{{ aoc_year }}/$AOC_YEAR/g; s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar$AOC_YEAR/Day$AOC_DAY.scala"
 
       # sed "s/{{ aoc_year }}/${{ steps.extract-year-day.outputs.year }}/g; s/{{ aoc_day }}/${{ steps.extract-year-day.outputs.year }}/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar{{ aoc_year }}/Day{{ aoc_day }}.scala"
 
