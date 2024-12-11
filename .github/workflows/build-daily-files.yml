@@ -20,7 +20,6 @@ env:
 jobs:
   download-days-input-and-commit:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
