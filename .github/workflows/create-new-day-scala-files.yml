@@ -31,7 +31,9 @@ jobs:
         run: |
           aoc_year=${{ steps.extract-year-day.outputs.year }}
           aoc_day=${{ steps.extract-year-day.outputs.day }}
-          sed "s/{{ aoc_year }}/$year/g; s/{{ aoc_day }}/$day/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar{{ aoc_year }}/Day{{ aoc_day }}.scala"
+          sed "s/{{ aoc_year }}/$aoc_year/g; s/{{ aoc_day }}/$aoc_day/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar$aoc_year/Day$aoc_day.scala"
+
+      # sed "s/{{ aoc_year }}/${{ steps.extract-year-day.outputs.year }}/g; s/{{ aoc_day }}/${{ steps.extract-year-day.outputs.year }}/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar{{ aoc_year }}/Day{{ aoc_day }}.scala"
 
       # - uses: actions-template/actions-template@v1
       #   with:
