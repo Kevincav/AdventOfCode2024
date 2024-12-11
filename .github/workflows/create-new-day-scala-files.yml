@@ -20,6 +20,7 @@ jobs:
       AOC_YEAR: 2024
       AOC_DAY: 11
     steps:
+      - uses: actions/checkout@v4
       - uses: actions-template/actions-template@v1
         with:
           template: 'src/main/scala/template/SolutionTemplate.tpl'
