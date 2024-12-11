@@ -27,13 +27,11 @@ jobs:
           echo "::set-output name=year::$year"
           echo "::set-output name=day::$day"
 
-      - uses: actions-template/actions-template@v1
-        with:
-          template: 'src/main/scala/template/SolutionTemplate.tpl'
-          output: 'src/main/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala'
-          variables:
-            aoc_year: ${{ steps.extract-year-day.outputs.year }}
-            aoc_day: ${{ steps.extract-year-day.outputs.day }}
+      - name: Copy and Replace Template
+        run: |
+          aoc_year=${{ steps.extract-year-day.outputs.year }}
+          aoc_day=${{ steps.extract-year-day.outputs.day }}
+          sed "s/{{ aoc_year }}/$year/g; s/{{ aoc_day }}/$day/g" src/main/scala/templates/SolutionTemplate.tpl > src/main/scala/org/advent/year{{ aoc_year }}/Day{{ aoc_day }}.scala
 
       # - uses: actions-template/actions-template@v1
       #   with:
