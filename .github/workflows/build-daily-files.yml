@@ -18,7 +18,7 @@ env:
   AOC_YEAR: $(date +%Y)
 
 jobs:
-  download-and-commit:
+  download-days-input-and-commit:
     runs-on: ubuntu-latest
 
     steps:
@@ -84,7 +84,7 @@ jobs:
 
       - name: Copy and Replace Test Template
         run: |
-          sed "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/test/scala/org/advent/templates/SolutionTemplate.tpl" > "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          sed "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/test/scala/org/advent/templates/SolutionTemplateTest.tpl" > "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
           sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"      
 
       - name: Commit Changes
