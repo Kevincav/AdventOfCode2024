@@ -1,4 +1,4 @@
-package org.advent.templates
+package org.advent.year{{ aoc_year }}
 
 import org.advent.utils.Problem
 

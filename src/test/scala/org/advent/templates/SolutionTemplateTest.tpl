@@ -1,4 +1,4 @@
-package org.advent.templates
+package org.advent.year{{ aoc_year }}
 
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
