@@ -31,7 +31,7 @@
 <br />
 <div align="center">
   <a href="https://aplwiki.com/images/0/0d/Advent_Of_Code_Logo.png">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://user-images.githubusercontent.com/16360374/49324718-7954f100-f4e8-11e8-8ef6-1b701afc504f.png" alt="Logo" width="120" height="120">
   </a>
 
 <h3 align="center">Advent of Code Scala Framework</h3>
