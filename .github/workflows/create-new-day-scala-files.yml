@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 jobs:
-  download-and-commit:
+  copy-template-and-commit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -25,14 +25,18 @@ jobs:
           distribution: corretto`
 
       - name: Extract Year and Day
-        id: extract-year-day
         run: |
           echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
           echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
 
+      - name: Make directory and files
+        run: |
+          mkdir -p "src/main/scala/org/advent/year$AOC_YEAR" "src/test/scala/org/advent/year$AOC_YEAR"
+          touch "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala" "src/test/scala/org/advent/year$AOC_YEAR/Day$AOC_DAYTest.scala"
+
       - name: Copy and Replace Template
         run: |
-          sed "s/{{ aoc_year }}/$AOC_YEAR/g; s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar$AOC_YEAR/Day$AOC_DAY.scala"
+          sed "s/{{ aoc_year }}/$AOC_YEAR/g; s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
