@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers
 
 import cats.effect.unsafe.implicits.global
 
-class Day10Test extends AnyFunSuite with Matchers{
+class Day10Test extends AnyFunSuite with Matchers {
   test("Day 10 Part 1") {
     val data = s"""|89010123
                    |78121874

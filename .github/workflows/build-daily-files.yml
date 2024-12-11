@@ -84,8 +84,8 @@ jobs:
 
       - name: Copy and Replace Test Template
         run: |
-          sed "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/test/scala/org/advent/templates/SolutionTemplateTest.tpl" > "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
-          sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"      
+          sed "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/test/scala/org/advent/templates/SolutionTemplateTest.tpl" > "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"
+          sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"      
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
