@@ -25,15 +25,15 @@ jobs:
           template: 'src/main/scala/template/SolutionTemplate.tpl'
           output: 'src/main/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala'
           variables:
-            aoc_day: AOC_DAY
-            aoc_year: AOC_YEAR
+            aoc_day: $AOC_DAY
+            aoc_year: $AOC_YEAR
       - uses: actions-template/actions-template@v1
         with:
           template: 'test/main/scala/template/SolutionTemplate.tpl'
           output: 'test/main/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala'
           variables:
-            aoc_day: AOC_DAY
-            aoc_year: AOC_YEAR
+            aoc_day: $AOC_DAY
+            aoc_year: $AOC_YEAR
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
