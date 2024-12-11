@@ -32,16 +32,16 @@ jobs:
           template: 'src/main/scala/template/SolutionTemplate.tpl'
           output: 'src/main/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala'
           variables:
-            year: ${{ steps.extract-year-day.outputs.year }}
-            day: ${{ steps.extract-year-day.outputs.day }}
+            aoc_year: ${{ steps.extract-year-day.outputs.year }}
+            aoc_day: ${{ steps.extract-year-day.outputs.day }}
 
-      - uses: actions-template/actions-template@v1
-        with:
-          template: 'test/main/scala/template/SolutionTemplate.tpl'
-          output: 'test/main/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala'
-          variables:
-            year: ${{ steps.extract-year-day.outputs.year }}
-            day: ${{ steps.extract-year-day.outputs.day }}
+      # - uses: actions-template/actions-template@v1
+      #   with:
+      #     template: 'test/main/scala/template/SolutionTemplate.tpl'
+      #     output: 'test/main/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala'
+      #     variables:
+      #       year: ${{ steps.extract-year-day.outputs.year }}
+      #       day: ${{ steps.extract-year-day.outputs.day }}
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
