@@ -36,7 +36,7 @@ jobs:
 
       - name: Copy and Replace Source Template
         run: |
-          sed "s/{{ aoc_year }}/$AOC_YEAR/g "src/main/scala/org/advent/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
+          sed "s/{{ aoc_year }}/$AOC_YEAR/g" "src/main/scala/org/advent/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
           sed -i "s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
 
       - name: Commit Changes
