@@ -1,0 +1,30 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Download Advent of Code Input Data
+
+on:
+  schedule:
+    - cron: "0 5 1-25 12 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download-and-commit:
+    copy-template:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: Extract Year and Day
+          id: extract-year-day
+          run: |
+            echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
+            echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
+        - name: Copy Template
+          run: |
+            cp src/main/scala/template/SolutionTemplate.tpl src/main/org/advent/year$AOC_YEAR/Daay$AOC_DAY.scala
+            cp test/main/scala/template/SolutionTemplate.tpl test/main/org/advent/year$AOC_YEAR/Daay$AOC_DAYTest.scala
