@@ -18,6 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: corretto`
 
       - name: Extract Year and Day
         id: extract-year-day
@@ -27,19 +32,7 @@ jobs:
 
       - name: Copy and Replace Template
         run: |
-          aoc_year=${{ steps.extract-year-day.outputs.year }}
-          aoc_day=${{ steps.extract-year-day.outputs.day }}
           sed "s/{{ aoc_year }}/$AOC_YEAR/g; s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar$AOC_YEAR/Day$AOC_DAY.scala"
-
-      # sed "s/{{ aoc_year }}/${{ steps.extract-year-day.outputs.year }}/g; s/{{ aoc_day }}/${{ steps.extract-year-day.outputs.year }}/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/yeaar{{ aoc_year }}/Day{{ aoc_day }}.scala"
-
-      # - uses: actions-template/actions-template@v1
-      #   with:
-      #     template: 'test/main/scala/template/SolutionTemplate.tpl'
-      #     output: 'test/main/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala'
-      #     variables:
-      #       year: ${{ steps.extract-year-day.outputs.year }}
-      #       day: ${{ steps.extract-year-day.outputs.day }}
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
