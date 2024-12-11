@@ -35,9 +35,11 @@ jobs:
           mkdir -p "src/main/scala/org/advent/year$AOC_YEAR" "src/test/scala/org/advent/year$AOC_YEAR"
           touch "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala" "src/test/scala/org/advent/year$AOC_YEAR/Day$AOC_DAYTest.scala"
 
-      - name: Copy and Replace Template
+      - name: Copy and Replace Source Template
         run: |
-          sed "s/{{ aoc_year }}/$AOC_YEAR/g; s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
+          cp "src/main/scala/templates/SolutionTemplate.tpl" "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
+          sed -i "s/{{ aoc_year }}/$AOC_YEAR/g "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
+          sed -i s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
