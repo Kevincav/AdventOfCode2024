@@ -34,10 +34,10 @@
     <img src="https://user-images.githubusercontent.com/16360374/49324718-7954f100-f4e8-11e8-8ef6-1b701afc504f.png" alt="Logo" width="120" height="120">
   </a>
 
-<h3 align="center">Advent of Code Scala 2024</h3>
+<h3 align="center">Advent of Code Scala Solutions</h3>
 
   <p align="center">
-    A useful template library to get started in Advent of Code with Scala
+    A useful library I use to get started coding with Advent of Code
     <br />
     <br />
     <a href="https://github.com/Kevincav/AdventOfCode2024/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
