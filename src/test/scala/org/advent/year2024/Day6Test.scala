@@ -32,7 +32,7 @@ class Day6Test extends AnyFunSuite with Matchers {
          |#.........
          |......#...""".stripMargin.split("\n").toList
 
-    // Day6.solution2(Day6.setup(data)) shouldBe 6
+    Day6.solution2(Day6.setup(data)) shouldBe 6
   }
 
   test("Run Day 6") {

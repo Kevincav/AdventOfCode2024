@@ -44,7 +44,7 @@ object Day9 extends Problem[List[Option[Int]]](2024, 9) {
     }
 
   override def setup(input: List[String]): List[Option[Int]] =
-    val (left, right) = (input.head.map(_.toInt - 48) ++ (if (input.size % 2 == 0) Nil else List(0))).zipWithIndex.partition(_._2 % 2 == 0)
+    val (left, right) = (input.head.map(_.asDigit) ++ (if (input.size % 2 == 0) Nil else List(0))).zipWithIndex.partition(_._2 % 2 == 0)
     left.zip(right).flatMap { case ((l, i), (r, j)) => List.fill(l)(Some(i / 2)) ::: List.fill(r)(None) }.toList
 
   override def solution1(data: List[Option[Int]]): Long =

@@ -3,8 +3,7 @@ package org.advent.libs.year2024
 import org.advent.utils.Position
 
 object Day6 {
-  val directions: Map[Char, Set[Direction]] = Map('^' -> Set(North), '>' -> Set(East), 'v' -> Set(South), '<' -> Set(West),
-    180.toChar -> Set(East, South), 178.toChar -> Set(South, West), 154.toChar -> Set(West, North), 156.toChar -> Set(North, East))
+  val directions: Map[Char, Direction] = Map('^' -> North, '>' -> East, 'v' -> South, '<' -> West)
 
   sealed trait Direction {
     def position: Position
