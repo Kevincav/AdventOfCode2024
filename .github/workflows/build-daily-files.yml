@@ -1,0 +1,104 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Download Advent of Code Input Data and Create Source / Test Files from Template
+
+on:
+  schedule:
+    - cron: "0 5 1-25 12 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: corretto
+
+      - name: Set AoC Date
+        run: |
+          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
+          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
+
+      - name: Download File
+        run: |
+          mkdir -p src/main/resources/year$AOC_YEAR/input
+          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION }}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o "src/main/resources/year$AOC_YEAR/input/Day$AOC_DAY.input" "https://adventofcode.com/$AOC_YEAR/day/$AOC_DAY/input"
+
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Daily input file update"
+          add: .
+
+  copy-source-template-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: corretto
+
+      - name: Extract Year and Day
+        run: |
+          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
+          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
+
+      - name: Make directory and files
+        run: |
+          mkdir -p "src/main/scala/org/advent/year$AOC_YEAR"
+
+      - name: Copy and Replace Source Template
+        run: |
+          sed "s/{{ aoc_year }}/$AOC_YEAR/g" "src/main/scala/org/advent/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
+          sed -i "s/{{ aoc_day }}/$AOC_DAY/g" "src/main/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
+
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Daily AoC Source Files"
+          add: .
+
+  copy-test-template-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: corretto
+
+      - name: Extract Year and Day
+        run: |
+          echo "AOC_DAY=$(date +"%-d")" >> ${GITHUB_ENV}
+          echo "AOC_YEAR=$(date +%Y)" >> ${GITHUB_ENV}
+
+      - name: Make directory and files
+        run: |
+          mkdir -p "src/test/scala/org/advent/year$AOC_YEAR"
+
+      - name: Copy and Replace Test Template
+        run: |
+          sed "s/{{ aoc_year }}/$AOC_YEAR/g" "src/test/scala/org/advent/templates/SolutionTemplate.tpl" > "src/test/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"
+          sed -i "s/{{ aoc_day }}/$AOC_DAY/g" "src/test/scala/org/advent/year$AOC_YEAR/Day$AOC_DAY.scala"      
+
+      - name: Commit Changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Daily AoC Test Files"
+          add: .
