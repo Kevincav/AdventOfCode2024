@@ -25,6 +25,8 @@ case class Graph(input: List[String]) {
   private val graph: Array[Array[Char]] = input.map(_.toArray).toArray
   private val ranges = (graph.indices, graph.head.indices)
   def apply(): Array[Array[Char]] = graph
+  def apply(i: Int): Array[Char] = graph(i)
+  def apply(i: Int, j: Int): Char = graph(i)(j)
   def apply(position: Position): Char = graph(position.x)(position.y)
   def update(position: Position, value: Char): Unit = graph(position.x)(position.y) = value
   def checkBounds(position: Position): Boolean = (ranges._1 contains position.x) && (ranges._2.indices contains position.y)

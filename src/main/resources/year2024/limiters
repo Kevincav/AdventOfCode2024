@@ -22,5 +22,17 @@
       "lastTimeUnit" : "nanoseconds",
       "partSolved" : false
     }
+  },
+  "12" : {
+    "part1" : {
+      "lastRun" : 275124657729041,
+      "lastTimeUnit" : "nanoseconds",
+      "partSolved" : false
+    },
+    "part2" : {
+      "lastRun" : 275425702397625,
+      "lastTimeUnit" : "nanoseconds",
+      "partSolved" : false
+    }
   }
 }
