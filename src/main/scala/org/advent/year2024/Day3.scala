@@ -19,7 +19,7 @@ object Day3 extends Problem[List[String]](2024, 3) {
 
   override def setup(input: List[String]): List[String] = input.flatMap(row => regex.findAllIn(row).toList)
 
-  override def solution1(list: List[String]): Int = getMulSum(list)
+  override def solution1(list: List[String]): Long = getMulSum(list)
 
-  override def solution2(list: List[String]): Int = getMulSum(list, false)
+  override def solution2(list: List[String]): Long = getMulSum(list, false)
 }

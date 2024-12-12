@@ -14,10 +14,10 @@ object Day4 extends Problem[Graph](2024, 4) {
 
   override def setup(input: List[String]): Graph = Graph(input)
 
-  override def solution1(graph: Graph): Int =
+  override def solution1(graph: Graph): Long =
     graph.findAll('X').flatMap(position => dfs(graph, position, "XMAS".toList)()).count(_.nonEmpty)
 
-  override def solution2(graph: Graph): Int = {
+  override def solution2(graph: Graph): Long = {
     val left = graph.findAll('M').flatMap(position => dfs(graph, position, "MAS".toList)(onlyDiagonalDirections))
     val right = left.map(mas => List(Position(mas.head._1, mas.last._2), mas(1), Position(mas.last._1, mas.head._2)))
     left.map(_.sortBy(_())).intersect(right.map(_.sortBy(_()))).size / 2

@@ -120,9 +120,28 @@ To get a local copy up and running follow these simple example steps.
   ```
   
 * [Fetch your Advent of Code Session Cookie](https://github.com/GreenLightning/advent-of-code-downloader?tab=readme-ov-file#how-do-i-get-my-session-cookie)
-* [Store your session cookie in a github environmental secret called AOC_COOKIE_SESSION](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
-* [Store your User-Agent in a github environmental secret called AOC_USER_AGENT](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)
-  * User-Agent example: `github.com/yourrepo/AdventOfCode by youremail@domain.com`
+
+* Set your cookie session
+  ```shell
+  echo 'export AOC_COOKIE_SESSION="<cookie session>"' >> ~/.zshrc
+  ```
+
+* Set your user agent
+  ```shell
+  echo 'export AOC_USER_AGENT="https://github.com/yourrepo/AdventOfCode by youremail@domain.com"' >> ~/.zshrc
+  ```
+
+* Set the flag to submit answers programmatically
+  ```shell
+  echo 'export AOC_SUBMIT_ANSWERS=true' >> ~/.zshrc
+  ```
+
+* Set the throttle flag
+  ```shell
+  echo 'export AOC_SUBMISSION_THROTTLE=5' >> ~/.zshrc
+  ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 ### Installation
@@ -146,33 +165,12 @@ To get a local copy up and running follow these simple example steps.
 
 ### Setting up for a new AoC day
 
-1. Copy the date template to the current year/date folder
+1. Run the Github Action [File Downloader](https://github.com/Kevincav/AdventOfCode2024/actions/workflows/build-daily-files.yml) (This action should run at midnight every day from Dec 1st - 25th)
+ 
+3. Pull the newest version of the code
    ```sh
-   cp src/main/scala/templates/SolutionTemplate.tpl src/main/scala/year{year}/Day{CurrentDate}.scala
+    git pull
    ```
-2. Copy the test date template to the current year/date test folder
-   ```sh
-   cp src/test/scala/templates/SolutionTemplateTest.scala src/test/scala/year{year}/Day{CurrentDate}Test.scala
-   ```
-3. Replace the year and date in the Problem class extension for the date
-   ```
-   object Day1 extends Problem[List[Int]](2024, 7)
-   ```
-4. Replace parsed data type to expected data type in the following 4 spots:
-    1. Before the date in class definition
-       ```
-       object Day1 extends Problem[List[Int]](2024, 1)
-       ```
-    2. The return type of the setup function
-       ```
-       override def setup(input: List[String]): List[Int] =
-       ```
-    3. Replace the data type in the function call for solutions 1 and 2
-       ```
-       override def solution1(data: List[Int]): Int =
-       ```
-5. Replace all instances of template in the test file with the current date and replace the SolutionTemplate classes with the current Date{day} class
-6. Add in the example input from the AoC page to the test inputs
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -212,7 +210,7 @@ To get a local copy up and running follow these simple example steps.
 
 This repo/tool does follow the [automation guidelines](https://www.reddit.com/r/adventofcode/wiki/faqs/automation) on the /r/adventofcode community wiki. Specifically:
 
-1. Outbound calls are throttled to every x minutes in throttleFunction()
+1. Outbound calls are throttled to every 5 minutes in pushAnswer()
 2. Solution inputs are downloaded and committed daily at midnight through GitHub Actions (only December 1-25 every year)
 3. Once inputs are downloaded, they are cached locally in `src/main/resources`
 4. If you suspect your input is corrupted, you can manually request a fresh copy by running the `input-aoc-solution-data` [GitHub Action](https://github.com/Kevincav/AdventOfCode2024/actions/workflows/input-aoc-solution-data.yml)

@@ -1,0 +1,26 @@
+{
+  "11" : {
+    "part1" : {
+      "lastRun" : 252288801514916,
+      "lastTimeUnit" : "nanoseconds",
+      "partSolved" : false
+    },
+    "part2" : {
+      "lastRun" : 254632663636625,
+      "lastTimeUnit" : "nanoseconds",
+      "partSolved" : false
+    }
+  },
+  "6" : {
+    "part1" : {
+      "lastRun" : 253320133508083,
+      "lastTimeUnit" : "nanoseconds",
+      "partSolved" : false
+    },
+    "part2" : {
+      "lastRun" : 253948677499958,
+      "lastTimeUnit" : "nanoseconds",
+      "partSolved" : false
+    }
+  }
+}

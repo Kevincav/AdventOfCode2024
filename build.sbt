@@ -8,5 +8,7 @@ lazy val root = project
       "org.scalactic" %% "scalactic" % "3.2.19",
       "org.scalatest" %% "scalatest" % "3.2.19" % Test,
       "org.typelevel" %% "cats-effect" % "3.5.7",
-    )
-  )
+      "com.github.pathikrit" %% "better-files" % "3.9.2",
+      "com.typesafe.play" %% "play-json" % "2.10.6",
+      "com.softwaremill.sttp.client4" %% "core" % "4.0.0-M19",
+    ))

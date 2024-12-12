@@ -33,10 +33,10 @@ object Day5 extends Problem[(Map[Int, Set[Int]], List[List[Int]])](2024, 5) {
     parseInput(list)
   }
 
-  override def solution1(input: (Map[Int, Set[Int]], List[List[Int]])): Int =
+  override def solution1(input: (Map[Int, Set[Int]], List[List[Int]])): Long =
     input._2.map(row => fixListRange(row, input._1)).withFilter(_.nonEmpty).map(row => row(row.size / 2)).sum
 
-  override def solution2(input: (Map[Int, Set[Int]], List[List[Int]])): Int = input._2.map(row => {
+  override def solution2(input: (Map[Int, Set[Int]], List[List[Int]])): Long = input._2.map(row => {
     val result = fixListRange(row, input._1, true)
     if (fixListRange(row, input._1).nonEmpty) 0 else result(result.size / 2)
   }).sum

@@ -2,6 +2,7 @@ package org.advent.utils
 
 import cats.effect.Clock
 import cats.effect.IO
+import org.advent.utils.HelperClasses.{Part1, Part2}
 
 import java.time.LocalDate
 import scala.Console.CYAN
@@ -17,9 +18,9 @@ abstract class Problem[A](year: Int, day: Int) {
 
   def setup(input: List[String]): A
 
-  def solution1(input: A): Any
+  def solution1(input: A): Long
 
-  def solution2(input: A): Any
+  def solution2(input: A): Long
 
   private def measure[B](name: String, showResult: Boolean = true)(lambda: IO[B]): IO[B] =
     Clock[IO].realTime.flatMap { startTime => lambda.flatMap { result => Clock[IO].realTime.map { endTime =>
@@ -32,5 +33,8 @@ abstract class Problem[A](year: Int, day: Int) {
     setupResult <- measure("Setup Data", false)(IO { setup(fetchResult) })
     solution1Result <- measure("Run Solution 1")(IO { solution1(setupResult) })
     solution2Result <- measure("Run Solution 2")(IO { solution2(setupResult) })
+    rateLimiter <- IO { RateLimiter(year, day) }
+    _ <- rateLimiter.publishAnswer(solution1Result, Part1())
+    _ <- rateLimiter.publishAnswer(solution2Result, Part2())
   } yield List(solution1Result, solution2Result)
 }

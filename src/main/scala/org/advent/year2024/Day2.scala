@@ -12,8 +12,8 @@ object Day2 extends Problem[List[List[Int]]](2024, 2) {
   override def setup(input: List[String]): List[List[Int]] =
     input.map(_.split(' ').toList.withFilter(_.nonEmpty).map(_.toInt))
 
-  override def solution1(data: List[List[Int]]): Int = checkRecords(data)(isOrdered)
+  override def solution1(data: List[List[Int]]): Long = checkRecords(data)(isOrdered)
 
-  override def solution2(data: List[List[Int]]): Int =
+  override def solution2(data: List[List[Int]]): Long =
     checkRecords(data)(row => row.indices.exists(i => isOrdered(row.patch(i, Nil, 1))))
 }

@@ -18,7 +18,7 @@ object Day10 extends Problem[Graph](2024, 10) {
 
   override def setup(input: List[String]): Graph = Graph(input)
 
-  override def solution1(graph: Graph): Int = graph.findAll('0').map(zero => dfs(graph, zero, 0)).sum
+  override def solution1(graph: Graph): Long = graph.findAll('0').map(zero => dfs(graph, zero, 0)).sum
 
-  override def solution2(graph: Graph): Int = graph.findAll('9').map(nine => dfs(graph, nine, 9, -1)).sum
+  override def solution2(graph: Graph): Long = graph.findAll('9').map(nine => dfs(graph, nine, 9, -1)).sum
 }
