@@ -210,11 +210,12 @@ To get a local copy up and running follow these simple example steps.
 
 This repo/tool does follow the [automation guidelines](https://www.reddit.com/r/adventofcode/wiki/faqs/automation) on the /r/adventofcode community wiki. Specifically:
 
-1. Outbound calls are throttled to every 5 minutes in pushAnswer()
-2. Solution inputs are downloaded and committed daily at midnight through GitHub Actions (only December 1-25 every year)
-3. Once inputs are downloaded, they are cached locally in `src/main/resources`
-4. If you suspect your input is corrupted, you can manually request a fresh copy by running the `input-aoc-solution-data` [GitHub Action](https://github.com/Kevincav/AdventOfCode2024/actions/workflows/input-aoc-solution-data.yml)
-5. The User-Agent header is set through GitHub Action Secrets
+1. Outbound calls are throttled to every N minutes (defined by environmental variable AOC_SUBMISSION_THROTTLE) in pushAnswer()
+2. Automated submissions can be turned off by setting the environmental variable AOC_SUBMIT_ANSWERS to false
+3. Solution inputs are downloaded and committed daily at midnight through GitHub Actions (only December 1-25 every year)
+4. Once inputs are downloaded, they are cached locally in `src/main/resources`
+5. If you suspect your input is corrupted, you can manually request a fresh copy by running the `input-aoc-solution-data` [GitHub Action](https://github.com/Kevincav/AdventOfCode2024/actions/workflows/input-aoc-solution-data.yml)
+6. The User-Agent header is set through GitHub Action Secrets
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
