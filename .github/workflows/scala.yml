@@ -27,6 +27,14 @@ jobs:
         with:
           java-version: 21
           distribution: corretto
+
+      - name: Set AoC Date
+        run: |
+          echo "AOC_COOKIE_SESSION=${{ secrets.AOC_COOKIE_SESSION }}" >> ${GITHUB_ENV}
+          echo "AOC_USER_AGENT=${{ secrets.AOC_USER_AGENT }}" >> ${GITHUB_ENV}
+          echo "AOC_SUBMIT_ANSWERS=${{ secrets.AOC_SUBMIT_ANSWERS }}" >> ${GITHUB_ENV}
+          echo "AOC_SUBMISSION_THROTTLE=${{ secrets.AOC_SUBMISSION_THROTTLE }}" >> ${GITHUB_ENV}
+
       - name: Run Main
         run: sbt -v "+test:testOnly org.advent.${{ matrix.package }}.*"
 
