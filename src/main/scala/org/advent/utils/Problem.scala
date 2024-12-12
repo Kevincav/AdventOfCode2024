@@ -2,7 +2,6 @@ package org.advent.utils
 
 import cats.effect.Clock
 import cats.effect.IO
-import org.advent.utils.HelperClasses.{Part1, Part2}
 
 import java.time.LocalDate
 import scala.Console.CYAN

@@ -1,12 +1,24 @@
 {
-  "11" : {
+  "10" : {
     "part1" : {
-      "lastRun" : 276699048069375,
+      "lastRun" : 276679403907958,
       "lastTimeUnit" : "nanoseconds",
       "partSolved" : true
     },
     "part2" : {
-      "lastRun" : 276699100456583,
+      "lastRun" : 276679457417791,
+      "lastTimeUnit" : "nanoseconds",
+      "partSolved" : true
+    }
+  },
+  "1" : {
+    "part1" : {
+      "lastRun" : 277134140094250,
+      "lastTimeUnit" : "nanoseconds",
+      "partSolved" : true
+    },
+    "part2" : {
+      "lastRun" : 277134180688125,
       "lastTimeUnit" : "nanoseconds",
       "partSolved" : true
     }
@@ -35,14 +47,14 @@
       "partSolved" : false
     }
   },
-  "10" : {
+  "11" : {
     "part1" : {
-      "lastRun" : 276679403907958,
+      "lastRun" : 276699048069375,
       "lastTimeUnit" : "nanoseconds",
       "partSolved" : true
     },
     "part2" : {
-      "lastRun" : 276679457417791,
+      "lastRun" : 276699100456583,
       "lastTimeUnit" : "nanoseconds",
       "partSolved" : true
     }

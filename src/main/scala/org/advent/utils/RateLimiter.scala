@@ -1,9 +1,9 @@
 package org.advent.utils
 
-import better.files.*
+import better.files.File
 import cats.effect.IO
-import org.advent.utils.HelperClasses.{CombinedLimiter, Part, Part1, Part2, PartLimiter}
-import play.api.libs.json.*
+import org.advent.utils.HelperClasses.{CombinedLimiter, PartLimiter}
+import play.api.libs.json.Json
 
 import sys.process.*
 import scala.concurrent.*

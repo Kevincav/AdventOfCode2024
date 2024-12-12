@@ -28,7 +28,7 @@ jobs:
           java-version: 21
           distribution: corretto
 
-      - name: Set AoC Date
+      - name: Set AoC Data
         run: |
           echo "AOC_COOKIE_SESSION=${{ secrets.AOC_COOKIE_SESSION }}" >> ${GITHUB_ENV}
           echo "AOC_USER_AGENT=${{ secrets.AOC_USER_AGENT }}" >> ${GITHUB_ENV}

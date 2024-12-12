@@ -121,6 +121,7 @@ To get a local copy up and running follow these simple example steps.
   
 * [Fetch your Advent of Code Session Cookie](https://github.com/GreenLightning/advent-of-code-downloader?tab=readme-ov-file#how-do-i-get-my-session-cookie)
 
+
 * Set your cookie session
   ```shell
   echo 'export AOC_COOKIE_SESSION="<cookie session>"' >> ~/.zshrc
