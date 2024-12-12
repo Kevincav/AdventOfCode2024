@@ -6,9 +6,9 @@
       "partSolved" : false
     },
     "part2" : {
-      "lastRun" : 254632663636625,
+      "lastRun" : 269896894876041,
       "lastTimeUnit" : "nanoseconds",
-      "partSolved" : false
+      "partSolved" : true
     }
   },
   "6" : {
@@ -18,7 +18,7 @@
       "partSolved" : false
     },
     "part2" : {
-      "lastRun" : 253948677499958,
+      "lastRun" : 263380126545458,
       "lastTimeUnit" : "nanoseconds",
       "partSolved" : false
     }

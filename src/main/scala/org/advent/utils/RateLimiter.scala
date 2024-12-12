@@ -4,7 +4,7 @@ import better.files.*
 import cats.effect.IO
 import org.advent.utils.HelperClasses.{CombinedLimiter, Part, Part1, Part2, PartLimiter}
 import play.api.libs.json.*
-import sttp.client4.*
+import sys.process._
 
 import scala.concurrent.*
 import scala.concurrent.duration.*
@@ -15,11 +15,9 @@ case class RateLimiter(year: Int, day: Int) {
   file.createIfNotExists(asDirectory = false, createParents = true)
 
   private def pushAnswer(answer: Long, part: Part): IO[PartLimiter] = {
-    val result = quickRequest
-      .post(uri"https://adventofcode.com/$year/day/$day/answer")
-      .cookie("session", sys.env("AOC_COOKIE_SESSION"))
-      .body(s"level=${part.part}&answer=$answer")
-      .header("User-Agent", sys.env("AOC_USER_AGENT")).send(DefaultSyncBackend()).body
+    val result = List("curl", "-X", "POST", "--cookie", s"'session=${sys.env("AOC_COOKIE_SESSION")}'", "-H",
+      s"'User-Agent: ${sys.env("AOC_COOKIE_SESSION")}'", "--data", s"'level=${part.part}&answer=$answer'",
+      s"https://adventofcode.com/$year/day/$day/answer").mkString(" ").!!
 
     IO {
       PartLimiter(
