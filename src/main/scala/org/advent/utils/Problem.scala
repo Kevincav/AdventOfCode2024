@@ -34,7 +34,6 @@ abstract class Problem[A](year: Int, day: Int) {
     solution1Result <- measure("Run Solution 1")(IO { solution1(setupResult) })
     solution2Result <- measure("Run Solution 2")(IO { solution2(setupResult) })
     rateLimiter <- IO { RateLimiter(year, day) }
-    _ <- rateLimiter.publishAnswer(solution1Result, Part1())
-    _ <- rateLimiter.publishAnswer(solution2Result, Part2())
+    _ <- rateLimiter.publishAnswer(solution1Result, solution2Result)
   } yield List(solution1Result, solution2Result)
 }

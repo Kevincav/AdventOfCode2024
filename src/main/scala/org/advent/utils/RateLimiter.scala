@@ -4,20 +4,21 @@ import better.files.*
 import cats.effect.IO
 import org.advent.utils.HelperClasses.{CombinedLimiter, Part, Part1, Part2, PartLimiter}
 import play.api.libs.json.*
-import sys.process._
 
+import sys.process.*
 import scala.concurrent.*
 import scala.concurrent.duration.*
 import scala.io.Source
+import scala.language.postfixOps
 
 case class RateLimiter(year: Int, day: Int) {
   private val file: File = File(s"src/main/resources/year$year/limiters")
   file.createIfNotExists(asDirectory = false, createParents = true)
 
-  private def pushAnswer(answer: Long, part: Part): IO[PartLimiter] = {
+  private def pushAnswer(answer: Long, part: Int): IO[PartLimiter] = {
     val result = List("curl", "-X", "POST", "--cookie", s"'session=${sys.env("AOC_COOKIE_SESSION")}'", "-H",
-      s"'User-Agent: ${sys.env("AOC_COOKIE_SESSION")}'", "--data", s"'level=${part.part}&answer=$answer'",
-      s"https://adventofcode.com/$year/day/$day/answer").mkString(" ").!!
+      s"'User-Agent: ${sys.env("AOC_COOKIE_SESSION")}'", "--data", s"'level=$part&answer=$answer'",
+      s"https://adventofcode.com/$year/day/$day/answer").mkString(" ") !!
 
     IO {
       PartLimiter(
@@ -28,7 +29,7 @@ case class RateLimiter(year: Int, day: Int) {
     }
   }
 
-  def publishAnswer(result: Long, part: Part): IO[Unit] = {
+  def publishAnswer(part1: Long, part2: Long): IO[Unit] = {
     if (sys.env("AOC_SUBMIT_ANSWERS").toBoolean) {
       // Fetch last publish run data for the current part
       val dayLimiter: Map[Int, CombinedLimiter] =
@@ -37,19 +38,15 @@ case class RateLimiter(year: Int, day: Int) {
           .get.withDefaultValue(CombinedLimiter())
 
       // If duration since last run >= limit && publish enabled submit
-      val ableToRun = (if (part == Part1()) dayLimiter(day).part1 else dayLimiter(day).part2) match {
+      val ableToRun = List(dayLimiter(day).part1, dayLimiter(day).part2).map {
         case PartLimiter(_, _, true) => false
         case PartLimiter(lastRun, lastTimeUnit, _) => Deadline.apply(FiniteDuration.apply(lastRun, lastTimeUnit)).isOverdue()
       }
 
       // Check results for successful answer / submission and Save new limiter results
-      pushAnswer(result, part).map(limiter => {
-        val newLimiter: CombinedLimiter =
-          if (ableToRun && part == Part1()) dayLimiter(day).copy(part1 = limiter)
-          else if (ableToRun && part == Part2()) dayLimiter(day).copy(part2 = limiter)
-          else dayLimiter(day)
-        file.writeText(Json.prettyPrint(Json.toJson(dayLimiter.updated(day, newLimiter))))
-      })
+      val newValues = pushAnswer(part1, 1).flatMap(part1Limiter => pushAnswer(part2, 2).map(part2Limiter =>
+        dayLimiter.updated(day, dayLimiter(day).copy(part1 = part1Limiter, part2 = part2Limiter))))
+      newValues.map(values => file.writeText(Json.prettyPrint(Json.toJson(values))))
     } else IO {}
   }
 }
