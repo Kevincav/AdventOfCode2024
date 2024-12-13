@@ -16,6 +16,10 @@ permissions:
 env:
   AOC_DAY: $(date +"%-d")
   AOC_YEAR: $(date +%Y)
+  AOC_COOKIE: "session=${{ secrets.AOC_COOKIE_SESSION }}"
+  AOC_AGENT: "User-Agent: ${{ secrets.AOC_USER_AGENT }}"
+  AOC_FILE: "src/main/resources/year${{ env.AOC_YEAR }}/input/Day${{ env.AOC_DAY }}.input"
+  AOC_URL: "https://adventofcode.com/${{ env.AOC_YEAR }}/day/${{ env.AOC_DAY }}/input"
 
 jobs:
   download-days-input-and-commit:
@@ -37,7 +41,7 @@ jobs:
 
       - name: Download Input Data
         run: |
-          curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION }}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o "src/main/resources/year${{ env.AOC_YEAR }}/input/Day${{ env.AOC_DAY }}.input" "https://adventofcode.com/${{ env.AOC_YEAR }}/day/${{ env.AOC_DAY }}/input"
+          curl --cookie ${{ env.AOC_COOKIE }} -H ${{ env.AOC_AGENT }} -o ${{ env.AOC_FILE }} ${{ env.AOC_URL }}
 
       - name: Create new source and test files from templates
         run: |
