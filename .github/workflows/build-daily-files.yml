@@ -41,7 +41,7 @@ jobs:
 
       - name: Download Input Data
         run: |
-          curl --cookie ${{ env.AOC_COOKIE }} -H ${{ env.AOC_AGENT }} -o ${{ env.AOC_FILE }} ${{ env.AOC_URL }}
+          curl --cookie "${{ env.AOC_COOKIE }}" -H "${{ env.AOC_AGENT }}" -o "${{ env.AOC_FILE }}" "${{ env.AOC_URL }}"
 
       - name: Create new source and test files from templates
         run: |
