@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 env:
-  AOC_DAY: $(date +%-d)
+  AOC_DAY: $(date +"%-d")
   AOC_YEAR: $(date +%Y)
 
 jobs:
@@ -48,7 +48,7 @@ jobs:
         run: |
           sed -i "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
           sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
-          sed -i "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g"" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"
+          sed -i "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"
           sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"      
 
       - name: Commit Changes
