@@ -41,12 +41,12 @@ jobs:
 
       - name: Create new source and test files from templates
         run: |
-          cp "src/main/scala/org/advent/templates/SolutionTemplate.tpl" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
-          cp "src/test/scala/org/advent/templates/SolutionTemplateTest.tpl" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"
+          cp -n "src/main/scala/org/advent/templates/SolutionTemplate.tpl" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          cp -n "src/test/scala/org/advent/templates/SolutionTemplateTest.tpl" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"
 
       - name: Update source and test files to use current day variables
         run: |
-          sed -i "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g"" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          sed -i "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
           sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
           sed -i "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g"" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
           sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"      
