@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 env:
-  AOC_DAY: $(date +"%-d")
+  AOC_DAY: $(date +%-d)
   AOC_YEAR: $(date +%Y)
 
 jobs:
