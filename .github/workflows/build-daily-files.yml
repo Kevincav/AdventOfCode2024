@@ -23,74 +23,36 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Fetch Full History
-        run: git fetch --depth=0 origin
-
       - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
           java-version: 21
           distribution: corretto
 
-      - name: Download File
+      - name: Make directories if not exists
         run: |
           mkdir -p src/main/resources/year${{ env.AOC_YEAR }}/input
+          mkdir -p "src/main/scala/org/advent/year${{ env.AOC_YEAR }}"
+          mkdir -p "src/test/scala/org/advent/year${{ env.AOC_YEAR }}"
+
+      - name: Download Input Data
+        run: |
           curl --cookie "session=${{ secrets.AOC_COOKIE_SESSION }}" -H "User-Agent: ${{ secrets.AOC_USER_AGENT }}" -o "src/main/resources/year${{ env.AOC_YEAR }}/input/Day${{ env.AOC_DAY }}.input" "https://adventofcode.com/${{ env.AOC_YEAR }}/day/${{ env.AOC_DAY }}/input"
+
+      - name: Create new source and test files from templates
+        run: |
+          cp "src/main/scala/org/advent/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          cp "src/test/scala/org/advent/templates/SolutionTemplateTest.tpl" > "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"
+
+      - name: Update source and test files to use current day variables
+        run: |
+          sed -i "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g"" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          sed -i "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g"" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
+          sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"      
 
       - name: Commit Changes
         uses: EndBug/add-and-commit@v9
         with:
           message: "Daily input file update"
-          add: .
-
-  copy-source-template-and-commit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: 21
-          distribution: corretto
-
-      - name: Make directory and files
-        run: |
-          mkdir -p "src/main/scala/org/advent/year${{ env.AOC_YEAR }}"
-
-      - name: Copy and Replace Source Template
-        run: |
-          sed "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/main/scala/org/advent/templates/SolutionTemplate.tpl" > "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
-          sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/main/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}.scala"
-
-      - name: Commit Changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "Daily AoC Source Files"
-          add: .
-
-  copy-test-template-and-commit:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: 21
-          distribution: corretto
-
-      - name: Make directory and files
-        run: |
-          mkdir -p "src/test/scala/org/advent/year${{ env.AOC_YEAR }}"
-
-      - name: Copy and Replace Test Template
-        run: |
-          sed "s/{{ aoc_year }}/${{ env.AOC_YEAR }}/g" "src/test/scala/org/advent/templates/SolutionTemplateTest.tpl" > "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"
-          sed -i "s/{{ aoc_day }}/${{ env.AOC_DAY }}/g" "src/test/scala/org/advent/year${{ env.AOC_YEAR }}/Day${{ env.AOC_DAY }}Test.scala"      
-
-      - name: Commit Changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "Daily AoC Test Files"
           add: .
