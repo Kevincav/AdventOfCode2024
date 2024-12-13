@@ -18,8 +18,8 @@ env:
   AOC_YEAR: $(date +%Y)
   AOC_COOKIE: "session=${{ secrets.AOC_COOKIE_SESSION }}"
   AOC_AGENT: "User-Agent: ${{ secrets.AOC_USER_AGENT }}"
-  AOC_FILE: "src/main/resources/year${{ env.AOC_YEAR }}/input/Day${{ env.AOC_DAY }}.input"
-  AOC_URL: "https://adventofcode.com/${{ env.AOC_YEAR }}/day/${{ env.AOC_DAY }}/input"
+  AOC_FILE: "src/main/resources/year${{ date +%Y }}/input/Day${{ date +%-d }}.input"
+  AOC_URL: "https://adventofcode.com/${{ date +%Y }}/day/${{ date +%-d }}/input"
 
 jobs:
   download-days-input-and-commit:
