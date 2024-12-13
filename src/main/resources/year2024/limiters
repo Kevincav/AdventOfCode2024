@@ -1,62 +1,12 @@
 {
-  "10" : {
-    "part1" : {
-      "lastRun" : 276679403907958,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : true
+  "keyToDurationMap" : {
+    "Day 11" : {
+      "time" : 5,
+      "timeUnit" : "minutes"
     },
-    "part2" : {
-      "lastRun" : 276679457417791,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : true
-    }
-  },
-  "1" : {
-    "part1" : {
-      "lastRun" : 277134140094250,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : true
-    },
-    "part2" : {
-      "lastRun" : 277134180688125,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : true
-    }
-  },
-  "6" : {
-    "part1" : {
-      "lastRun" : 253320133508083,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : false
-    },
-    "part2" : {
-      "lastRun" : 263380126545458,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : false
-    }
-  },
-  "12" : {
-    "part1" : {
-      "lastRun" : 276713479529291,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : true
-    },
-    "part2" : {
-      "lastRun" : 276713545621416,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : false
-    }
-  },
-  "11" : {
-    "part1" : {
-      "lastRun" : 276699048069375,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : true
-    },
-    "part2" : {
-      "lastRun" : 276699100456583,
-      "lastTimeUnit" : "nanoseconds",
-      "partSolved" : true
+    "Day 12" : {
+      "time" : 5,
+      "timeUnit" : "minutes"
     }
   }
 }

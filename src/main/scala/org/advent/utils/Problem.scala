@@ -2,6 +2,7 @@ package org.advent.utils
 
 import cats.effect.Clock
 import cats.effect.IO
+import org.advent.io.AoCPublisher
 
 import java.time.LocalDate
 import scala.Console.CYAN
@@ -32,7 +33,6 @@ abstract class Problem[A](year: Int, day: Int) {
     setupResult <- measure("Setup Data", false)(IO { setup(fetchResult) })
     solution1Result <- measure("Run Solution 1")(IO { solution1(setupResult) })
     solution2Result <- measure("Run Solution 2")(IO { solution2(setupResult) })
-    rateLimiter <- IO { RateLimiter(year, day) }
-    _ <- rateLimiter.publishAnswer(solution1Result, solution2Result)
+    _ <- AoCPublisher(year, day)().publishAnswer(solution1Result, solution2Result)
   } yield List(solution1Result, solution2Result)
 }

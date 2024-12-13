@@ -1,0 +1,12 @@
+{
+  "dayToPartSoledMap" : {
+    "11" : {
+      "part1Answer" : true,
+      "part2Answer" : true
+    },
+    "12" : {
+      "part1Answer" : true,
+      "part2Answer" : true
+    }
+  }
+}

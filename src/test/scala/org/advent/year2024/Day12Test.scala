@@ -33,7 +33,7 @@ class Day12Test extends AnyFunSuite with Matchers {
                    |MIIISIJEEE
                    |MMMISSJEEE""".stripMargin.split("\n").toList
 
-    Day12.solution2(Day12.setup(data)) shouldBe 0
+    Day12.solution2(Day12.setup(data)) shouldBe 1206
   }
 
   test("Run Day 12") {

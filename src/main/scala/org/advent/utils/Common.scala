@@ -19,6 +19,7 @@ case class Position(x: Int, y: Int) {
   def ==(position: Position): Boolean = x == position.x && y == position.y
   def apply(): (Int, Int) = (x, y)
   def abs(): Position = Position(math.abs(x), math.abs(y))
+  def swap(): Position = Position(y, x)
 }
 
 case class Graph(input: List[String]) {
