@@ -8,6 +8,10 @@ case class Position(x: Int, y: Int) {
   @targetName("sub")
   def -(position: Position): Position = Position(x - position.x, y - position.y)
   @targetName("mul")
+  def *(position: Position): Position = Position(x * position.x, y * position.y)
+  @targetName("div")
+  def /(position: Position): Position = Position(x / position.x, y / position.y)
+  @targetName("mul")
   def *(i: Int): Position = Position(x * i, y * i)
   @targetName("div")
   def /(i: Int): Position = Position(x / i, y / i)
@@ -18,8 +22,11 @@ case class Position(x: Int, y: Int) {
   @targetName("equals")
   def ==(position: Position): Boolean = x == position.x && y == position.y
   def apply(): (Int, Int) = (x, y)
-  def abs(): Position = Position(math.abs(x), math.abs(y))
-  def swap(): Position = Position(y, x)
+  def abs: Position = Position(math.abs(x), math.abs(y))
+  def swap: Position = Position(y, x)
+  def sum: Int = x + y
+  def max: Int = math.max(x, y)
+  def min(position: Position): Position = Position(math.min(x, position.x), math.min(y, position.y))
 }
 
 case class Graph(input: List[String]) {
