@@ -29,6 +29,9 @@ jobs:
           java-version: 21
           distribution: corretto
 
+      - name: Set up SBT
+        uses: sbt/setup-sbt@v1
+
       - name: Set AoC Data
         run: |
           echo "AOC_COOKIE_SESSION=${{ secrets.AOC_COOKIE_SESSION }}" >> ${GITHUB_ENV}
