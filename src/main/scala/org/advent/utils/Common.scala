@@ -29,6 +29,38 @@ case class Position(x: Int, y: Int) {
   def min(position: Position): Position = Position(math.min(x, position.x), math.min(y, position.y))
 }
 
+sealed trait Direction {
+  val forward: Position
+  def getLeft: Direction
+  def getRight: Direction
+}
+
+case class North(forward: Position = Position(-1, 0)) extends Direction {
+  override def getLeft: Direction = West()
+  override def getRight: Direction = East()
+}
+
+case class South(forward: Position = Position(1, 0)) extends Direction {
+  override def getLeft: Direction = East()
+  override def getRight: Direction = West()
+}
+
+case class East(forward: Position = Position(0, 1)) extends Direction {
+  override def getLeft: Direction = North()
+  override def getRight: Direction = South()
+}
+
+case class West(forward: Position = Position(0, -1)) extends Direction {
+  override def getLeft: Direction = South()
+  override def getRight: Direction = North()
+}
+
+case class Robot(position: Position, direction: Direction, weight: Long = 0) {
+  def moveForward(): Robot = this.copy(position = position + direction.forward, weight = weight + 1)
+  def moveLeft(): Robot = this.copy(direction = direction.getLeft, weight = weight + 1000).moveForward()
+  def moveRight(): Robot = this.copy(direction = direction.getRight, weight = weight + 1000).moveForward()
+}
+
 case class Graph(input: List[String]) {
   private val graph: Array[Array[Char]] = input.map(_.toArray).toArray
   private val ranges = (graph.indices, graph.head.indices)
@@ -50,4 +82,5 @@ val diagonalGraphDirections: List[Position] = List(
 )
 
 val graphDirections: List[Position] = List(Position(-1, 0), Position(1, 0), Position(0, -1), Position(0, 1))
+val cardinalDirections: List[Direction] = List(North(), South(), East(), West())
 val onlyDiagonalDirections: List[Position] = List(Position(-1, -1), Position(-1, 1), Position(1, -1), Position(1, 1))

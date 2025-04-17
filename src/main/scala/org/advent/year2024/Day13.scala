@@ -29,6 +29,6 @@ object Day13 extends Problem[List[List[(Long, Long)]]](2024, 13) {
   override def solution1(data: List[List[(Long, Long)]]): Long =
     data.flatMap(row => getPossibleIndexes(row.head, row(1), row.last)()).sum
 
-  override def solution2(data: List[List[(Long, Long)]]): Long = data.map(row => row.updated(2, (row(2)._1 + 10000000000000L,
-    row(1)._2 + 10000000000000L))).flatMap(row => getPossibleIndexes(row.head, row(1), row.last)()).sum
+  override def solution2(data: List[List[(Long, Long)]]): Long = data.map(row => row.updated(2, (row(2)._1 +
+    0, row(1)._2 + 0))).flatMap(row => getPossibleIndexes(row.head, row(1), row.last)()).sum
 }

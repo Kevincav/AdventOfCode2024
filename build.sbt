@@ -10,5 +10,6 @@ lazy val root = project
       "org.typelevel" %% "cats-effect" % "3.5.7",
       "com.github.pathikrit" %% "better-files" % "3.9.2",
       "com.typesafe.play" %% "play-json" % "2.10.6",
-      "org.scala-lang.modules" %% "scala-parallel-collections" % "1.0.4",
+      "org.scala-lang.modules" %% "scala-parallel-collections" % "1.1.0",
+      "com.github.Kevincav" %% "aoc-rate-limiter" % "v1.0.0",
     ))

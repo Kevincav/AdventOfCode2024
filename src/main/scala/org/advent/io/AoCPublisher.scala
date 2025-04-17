@@ -22,7 +22,7 @@ private object Publisher {
 }
 
 case class AoCPublisher(year: Int, day: Int)(file: String = s"src/main/resources/year$year") {
-  private def pushToAoc(part: Int, answer: Long): IO[String] = IO {
+  private def pushToAoc(part: Int, answer: Any): IO[String] = IO {
     List("curl", "-X", "POST", "--cookie", s"'session=${sys.env("AOC_COOKIE_SESSION")}'", "-H",
       s"'User-Agent: ${sys.env("AOC_COOKIE_SESSION")}'", "--data", s"'level=$part&answer=$answer'",
       s"https://adventofcode.com/$year/day/$day/answer").mkString(" ") !!
@@ -31,12 +31,12 @@ case class AoCPublisher(year: Int, day: Int)(file: String = s"src/main/resources
   private def checkIfSolved(page: String) =
     page.contains("That's the right answer") || page.contains("Did you already complete it")
 
-  private def pushAnswer(answer: Long, part: Int): IO[Boolean] = for {
+  private def pushAnswer(answer: Any, part: Int): IO[Boolean] = for {
     aocPushResult <- pushToAoc(part, answer)
     _ <- IO { println(s"Submitting part $part for day $day, Answer for part $part: ${checkIfSolved(aocPushResult)}") }
   } yield checkIfSolved(aocPushResult)
 
-  def publishAnswer(part1: Long, part2: Long): IO[Unit] =
+  def publishAnswer(part1: Any, part2: Any): IO[Unit] =
     if (!sys.env("AOC_SUBMIT_ANSWERS").toBoolean) IO {} else for {
       newFile <- IO { File(s"$file/answers").createIfNotExists(createParents = true) }
       limiter <- RateLimiter(file).checkIfAvailableAndUpdate(s"Day $day")

@@ -5,6 +5,8 @@ import org.scalatest.matchers.should.Matchers
 
 import cats.effect.unsafe.implicits.global
 
+import scala.concurrent.duration.*
+
 class Day13Test extends AnyFunSuite with Matchers {
   test("Day 13 Part 1") {
     val data =
@@ -23,6 +25,9 @@ class Day13Test extends AnyFunSuite with Matchers {
           |Button A: X+69, Y+23
           |Button B: X+27, Y+71
           |Prize: X=18641, Y=10279""".stripMargin.split("\n").toList
+
+    println(0.minutes.fromNow.time)
+
     Day13.solution1(Day13.setup(data)) shouldBe 480
   }
 

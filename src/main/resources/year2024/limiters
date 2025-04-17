@@ -11,6 +11,10 @@
     "Day 13" : {
       "time" : 5,
       "timeUnit" : "minutes"
+    },
+    "Day 14" : {
+      "time" : 5,
+      "timeUnit" : "minutes"
     }
   }
 }

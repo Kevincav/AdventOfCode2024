@@ -18,9 +18,9 @@ abstract class Problem[A](year: Int, day: Int) {
 
   def setup(input: List[String]): A
 
-  def solution1(input: A): Long
+  def solution1(input: A): Any
 
-  def solution2(input: A): Long
+  def solution2(input: A): Any
 
   private def measure[B](name: String, showResult: Boolean = true)(lambda: IO[B]): IO[B] =
     Clock[IO].realTime.flatMap { startTime => lambda.flatMap { result => Clock[IO].realTime.map { endTime =>

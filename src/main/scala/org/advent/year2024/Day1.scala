@@ -2,15 +2,15 @@ package org.advent.year2024
 
 import org.advent.utils.Problem
 
-object Day1 extends Problem[List[List[Int]]](2024, 1) {
-  override def setup(input: List[String]): List[List[Int]] =
-    input.map(_.split(' ').toList.withFilter(_.nonEmpty).map(_.toInt))
-
-  override def solution1(data: List[List[Int]]): Long =
-    data.map(_.head).sorted.zip(data.map(_.last).sorted).map((x, y) => scala.math.abs(x - y)).sum
-
-  override def solution2(data: List[List[Int]]): Long = {
-    val counts = data.groupMapReduce(_.last)(_ => 1)(_ + _)
-    data.map(x => x.head * counts.getOrElse(x.head, 0)).sum
+object Day1 extends Problem[(List[Int], List[Int])](2024, 1) {
+  override def setup(input: List[String]): (List[Int], List[Int]) = {
+    val parsed = input.map(_.split(" ").withFilter(_.nonEmpty).map(_.toInt))
+    (parsed.map(_.head), parsed.map(_.last))
   }
+
+  override def solution1(data: (List[Int], List[Int])): Long =
+    data._1.sorted.zip(data._2.sorted).map((x, y) => math.abs(x - y)).sum
+
+  override def solution2(data: (List[Int], List[Int])): Long =
+    data._1.map(i => i * data._2.count(j => i == j)).sum
 }
