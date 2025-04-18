@@ -1,25 +1,10 @@
 package org.advent.io
 
-import better.files.File
 import cats.effect.IO
-import play.api.libs.json.{Format, Json}
+import rate.limiter.RateLimiter
 
 import scala.language.postfixOps
 import scala.sys.process.*
-
-private object Publisher {
-  case class CombinedLimiter(part1Answer: Boolean = false, part2Answer: Boolean = false)
-  implicit val combinedLimiterFormat: Format[CombinedLimiter] = Json.format[CombinedLimiter]
-
-  case class LimitDetails(dayToPartSoledMap: Map[Int, CombinedLimiter] = Map.empty)
-  implicit val limitDetailsFormat: Format[LimitDetails] = Json.format[LimitDetails]
-
-  def getDurationDetailsFromFile(file: File): IO[LimitDetails] =
-    IO { Json.fromJson[LimitDetails](Json.parse(if (file.isEmpty) "{}" else file.contentAsString)).getOrElse(LimitDetails()) }
-
-  def writeDurationDetailsToFile[A](file: File, writeObject: LimitDetails): IO[Unit] =
-    IO { file.writeText(Json.prettyPrint(Json.toJson(writeObject))) }
-}
 
 case class AoCPublisher(year: Int, day: Int)(file: String = s"src/main/resources/year$year") {
   private def pushToAoc(part: Int, answer: Any): IO[String] = IO {
@@ -28,24 +13,18 @@ case class AoCPublisher(year: Int, day: Int)(file: String = s"src/main/resources
       s"https://adventofcode.com/$year/day/$day/answer").mkString(" ") !!
   }
 
-  private def checkIfSolved(page: String) =
+  private def checkIfSolved(page: String): Boolean =
     page.contains("That's the right answer") || page.contains("Did you already complete it")
 
   private def pushAnswer(answer: Any, part: Int): IO[Boolean] = for {
     aocPushResult <- pushToAoc(part, answer)
-    _ <- IO { println(s"Submitting part $part for day $day, Answer for part $part: ${checkIfSolved(aocPushResult)}") }
+    _ <- IO { println(s"Submitting part $part for day $day, Answer ($answer) ${if (checkIfSolved(aocPushResult)) "is the correct" else "is the wrong"} solution") }
   } yield checkIfSolved(aocPushResult)
 
   def publishAnswer(part1: Any, part2: Any): IO[Unit] =
     if (!sys.env("AOC_SUBMIT_ANSWERS").toBoolean) IO {} else for {
-      newFile <- IO { File(s"$file/answers").createIfNotExists(createParents = true) }
-      limiter <- RateLimiter(file).checkIfAvailableAndUpdate(s"Day $day")
-      answerDetailMap <- Publisher.getDurationDetailsFromFile(newFile)
-      dayAnswerDetails <- IO { answerDetailMap.dayToPartSoledMap.getOrElse(day, Publisher.CombinedLimiter()) }
-      part1Result <- if (!(dayAnswerDetails.part1Answer && limiter)) pushAnswer(part1, 1) else IO { true }
-      part2Result <- if (!(dayAnswerDetails.part1Answer && limiter)) pushAnswer(part1, 1) else IO { true }
-      response <- IO { Publisher.LimitDetails(answerDetailMap.dayToPartSoledMap
-        .updated(day, Publisher.CombinedLimiter(part1Result, part2Result))) }
-      _ <- Publisher.writeDurationDetailsToFile(newFile, response)
+      limiter <- IO { RateLimiter(year, day) }
+      _ <- limiter.execute(part1, 1)(pushAnswer)
+      _ <- limiter.execute(part2, 2)(pushAnswer)
     } yield ()
 }

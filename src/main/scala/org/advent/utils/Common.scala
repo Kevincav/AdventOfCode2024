@@ -62,7 +62,7 @@ case class Robot(position: Position, direction: Direction, weight: Long = 0) {
 }
 
 case class Graph(input: List[String]) {
-  private val graph: Array[Array[Char]] = input.map(_.toArray).toArray
+  val graph: Array[Array[Char]] = input.map(_.toArray).toArray
   private val ranges = (graph.indices, graph.head.indices)
   def apply(): Array[Array[Char]] = graph
   def apply(i: Int): Array[Char] = graph(i)
@@ -72,6 +72,7 @@ case class Graph(input: List[String]) {
   def checkBounds(position: Position): Boolean = (ranges._1 contains position.x) && (ranges._2.indices contains position.y)
   def findAll(target: Char): List[Position] =
     graph.zipWithIndex.flatMap((row, i) => row.zipWithIndex.withFilter(_._1 == target).map((_, j) => Position(i, j))).toList
+  def length: Position = Position(graph.length, graph.last.length)
   override def toString: String = "." ++ graph.indices.map(_ % 10).mkString ++ "\n" ++
     graph.map(_.mkString).zipWithIndex.map((a, b) => (b % 10).toString ++ a).mkString("\n")
 }

@@ -11,4 +11,5 @@ lazy val root = project
       "com.github.pathikrit" %% "better-files" % "3.9.2",
       "com.typesafe.play" %% "play-json" % "2.10.6",
       "org.scala-lang.modules" %% "scala-parallel-collections" % "1.2.0",
+      "io.github.kevincav" %% "rate-limiter" % "v1.0.2",
     ))
