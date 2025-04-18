@@ -35,3 +35,6 @@ classes/
 
 # Visual Studio Code
 .vscode
+
+# SqlLite
+rate_limiter.db
