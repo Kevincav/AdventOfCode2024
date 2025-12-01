@@ -7,9 +7,18 @@ import cats.effect.unsafe.implicits.global
 
 class Day19Test extends AnyFunSuite with Matchers {
   test("Day 19 Part 1") {
-    val data = s"""|""".stripMargin.split("\n").toList
+    val data = s"""|r, wr, b, g, bwu, rb, gb, br
+                   |
+                   |brwrr
+                   |bggr
+                   |gbbr
+                   |rrbgbr
+                   |ubwu
+                   |bwurrg
+                   |brgr
+                   |bbrgwb""".stripMargin.split("\n").toList
 
-    Day19.solution1(Day19.setup(data)) shouldBe 0
+    Day19.solution1(Day19.setup(data)) shouldBe 6
   }
 
   test("Day 19 Part 2") {

@@ -7,7 +7,7 @@ name: Download Advent of Code Input Data and Create Source / Test Files from Tem
 
 on:
   schedule:
-    - cron: "0 5 1-25 12 *"
+    - cron: "0 5 1-12 12 *"
   workflow_dispatch:
 
 permissions:
