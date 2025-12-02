@@ -18,7 +18,7 @@ jobs:
   scala:
     strategy:
       matrix:
-        package: [ libs, utils, year2024 ]
+        package: [ libs, utils, year2025 ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
