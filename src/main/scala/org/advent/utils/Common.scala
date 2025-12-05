@@ -69,7 +69,7 @@ case class Graph(input: List[String]) {
   def apply(i: Int, j: Int): Char = graph(i)(j)
   def apply(position: Position): Char = graph(position.x)(position.y)
   def update(position: Position, value: Char): Unit = graph(position.x)(position.y) = value
-  def checkBounds(position: Position): Boolean = (ranges._1 contains position.x) && (ranges._2.indices contains position.y)
+  def checkBounds(position: Position): Boolean = graph.isDefinedAt(position.x) && graph(position.x).isDefinedAt(position.y)
   def findAll(target: Char): List[Position] =
     graph.zipWithIndex.flatMap((row, i) => row.zipWithIndex.withFilter(_._1 == target).map((_, j) => Position(i, j))).toList
   def length: Position = Position(graph.length, graph.last.length)

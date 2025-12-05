@@ -4,24 +4,20 @@ import org.advent.utils.{Graph, Position, Problem, allDirections}
 
 import scala.annotation.tailrec
 
-object Day4 extends Problem[Graph](2025, 4) {
+object Day4 extends Problem[(Graph, List[Position])](2025, 4) {
   private def getUpdatedPapers(graph: Graph, sides: Int): List[Position] = graph.findAll('@').filter(current =>
     allDirections.count(next => graph.checkBounds(current + next) && graph(current + next) == '@') < sides)
 
-  override def setup(input: List[String]): Graph = Graph(input)
+  override def setup(input: List[String]): (Graph, List[Position]) = {
+    val graph = Graph[input]
+    (graph, getUpdatedPapers(graph, 4))
+  }
 
-  override def solution1(data: Graph): Long = getUpdatedPapers(data, 4).length
+  override def solution1(data: (Graph, List[Position])): Long = data._2.length
 
-  override def solution2(data: Graph): Long = {
-    @tailrec
-    def iterate(count: Long = 0L): Long = {
-      val pages = getUpdatedPapers(data, 4)
-      if (pages.isEmpty) count else {
-        pages.foreach(current => data(current) = '.')
-        iterate(count + pages.length)
-      }
-    }
-
-    iterate()
+  override def solution2(data: (Graph, List[Position])): Long = if (data._2.isEmpty) 0 else {
+    data._2.foreach(current => data._1(current) = '.')
+    val papers = getUpdatedPapers(data._1)
+    papers.length + solution1(data.copy(_2 = papers))
   }
 }
