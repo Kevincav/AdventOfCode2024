@@ -9,5 +9,5 @@ object Day3 extends Problem[List[String]](2025, 3) {
 
   override def solution1(data: List[String]): Long = data.map(getMaxRow(_, 2)).sum
 
-  override def solution2(data: List[String]): Long = data.map(getMaxRow(_, 12)).sum
+  override def solution2(data: List[String]): Long = 0L // data.map(getMaxRow(_, 12)).sum
 }
