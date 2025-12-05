@@ -17,7 +17,7 @@ object Day4 extends Problem[(Graph, List[Position])](2025, 4) {
 
   override def solution2(data: (Graph, List[Position])): Long = if (data._2.isEmpty) 0 else {
     data._2.foreach(current => data._1(current) = '.')
-    val papers = getUpdatedPapers(data._1)
+    val papers = getUpdatedPapers(data._1, 4)
     papers.length + solution1(data.copy(_2 = papers))
   }
 }
