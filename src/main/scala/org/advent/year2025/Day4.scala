@@ -9,7 +9,7 @@ object Day4 extends Problem[(Graph, List[Position])](2025, 4) {
     allDirections.count(next => graph.checkBounds(current + next) && graph(current + next) == '@') < sides)
 
   override def setup(input: List[String]): (Graph, List[Position]) = {
-    val graph = Graph[input]
+    val graph = Graph(input)
     (graph, getUpdatedPapers(graph, 4))
   }
 
