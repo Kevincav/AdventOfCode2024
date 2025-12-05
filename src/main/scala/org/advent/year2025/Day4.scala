@@ -15,10 +15,10 @@ object Day4 extends Problem[Graph](2025, 4) {
   override def solution2(data: Graph): Long = {
     @tailrec
     def iterate(count: Long = 0L): Long = {
-      val pages = getUpdatedPapers(data, 4)
-      if (pages.isEmpty) count else {
-        pages.foreach(current => data(current) = '.')
-        iterate(count + pages.length)
+      val papers = getUpdatedPapers(data, 4)
+      if (papers.isEmpty) count else {
+        papers.foreach(current => data(current) = '.')
+        iterate(count + papers.length)
       }
     }
 
