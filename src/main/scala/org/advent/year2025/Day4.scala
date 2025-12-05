@@ -1,11 +1,27 @@
 package org.advent.year2025
 
-import org.advent.utils.Problem
+import org.advent.utils.{Graph, Position, Problem, allDirections}
 
-object Day4 extends Problem[Boolean](2025, 4) {
-  override def setup(input: List[String]): Boolean = true
+import scala.annotation.tailrec
 
-  override def solution1(data: Boolean): Long = 0
+object Day4 extends Problem[Graph](2025, 4) {
+  private def getUpdatedPapers(graph: Graph, sides: Int): List[Position] = graph.findAll('@').filter(current =>
+    allDirections.count(next => graph.checkBounds(current + next) && graph(current + next) == '@') < sides)
 
-  override def solution2(data: Boolean): Long = 0
+  override def setup(input: List[String]): Graph = Graph(input)
+
+  override def solution1(data: Graph): Long = getUpdatedPapers(data, 4).length
+
+  override def solution2(data: Graph): Long = {
+    @tailrec
+    def iterate(count: Long = 0L): Long = {
+      val pages = getUpdatedPapers(data, 4)
+      if (pages.isEmpty) count else {
+        pages.foreach(current => data(current) = '.')
+        iterate(count + pages.length)
+      }
+    }
+
+    iterate()
+  }
 }
