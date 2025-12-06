@@ -21,7 +21,7 @@ class Day3Test extends AnyFunSuite with Matchers {
                    |234234234234278
                    |818181911112111""".stripMargin.split("\n").toList
 
-    Day3.solution2(Day3.setup(data)) shouldBe 0L // 3121910778619L
+    Day3.solution2(Day3.setup(data)) shouldBe 3121910778619L
   }
 
   test("Run Day 3") {
