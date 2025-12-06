@@ -12,8 +12,8 @@ object Day2 extends Problem[Array[NumericRange.Inclusive[Long]]](2025, 2) {
     digits.grouped(size).forall(_ == chunk)
   }
 
-  override def setup(input: List[String]): Array[NumericRange.Inclusive[Long]] = input.head.split(",").map { range =>
-    val Array(low, high) = range.split("-")
+  override def setup(input: List[String]): Array[NumericRange.Inclusive[Long]] = input.head.split(',').map { range =>
+    val Array(low, high) = range.split('-')
     low.toLong to high.toLong
   }
 
