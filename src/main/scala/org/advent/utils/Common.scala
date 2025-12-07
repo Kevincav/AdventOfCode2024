@@ -59,11 +59,12 @@ case class Robot(position: Position, direction: Direction, weight: Long = 0) {
   def moveForward(): Robot = this.copy(position = position + direction.forward, weight = weight + 1)
   def moveLeft(): Robot = this.copy(direction = direction.getLeft, weight = weight + 1000).moveForward()
   def moveRight(): Robot = this.copy(direction = direction.getRight, weight = weight + 1000).moveForward()
+  def stepWest(): Robot = this.copy(position = position + Position(0, -1)).moveForward()
+  def stepEast(): Robot = this.copy(position = position + Position(0, 1)).moveForward()
 }
 
 case class Graph(input: List[String]) {
   val graph: Array[Array[Char]] = input.map(_.toArray).toArray
-  private val ranges = (graph.indices, graph.head.indices)
   def apply(): Array[Array[Char]] = graph
   def apply(i: Int): Array[Char] = graph(i)
   def apply(i: Int, j: Int): Char = graph(i)(j)
